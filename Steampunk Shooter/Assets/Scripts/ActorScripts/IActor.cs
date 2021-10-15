@@ -4,6 +4,11 @@
 /// </summary>
 public interface IActor
 {
+    /// <summary> Movement speed of this IActor. </summary>
+    float MoveSpeed { get; set; }
+    /// <summary> Attack speed of this IActor. </summary>
+    float AttackSpeed { get; set; }
+
     /// <summary>
     /// Call this function whenever the IActor should take damage.
     /// </summary>
