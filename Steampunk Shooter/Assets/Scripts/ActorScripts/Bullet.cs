@@ -91,7 +91,7 @@ public class Bullet : MonoBehaviour
         if(hitObject != null)
         {
             hitObject.TakeDamage(Power);
-            Destroy(BulletRB.gameObject);
+            Destroy(gameObject);
         }
 
         // destroy bullet on hitting walls

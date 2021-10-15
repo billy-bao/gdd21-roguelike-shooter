@@ -30,12 +30,18 @@ public class Enemy1 : MonoBehaviour, IEnemy
     [SerializeField]
     private float attackFreq = 1f; // cooldown period of attacks
     private float attackTimer = 0f;
+
+    /// <summary> Attack speed of this enemy. </summary>
+    public float AttackSpeed { get { return 1f / attackFreq; } set { attackFreq = 1f / value; } }
     #endregion
 
     #region Movement_vars
     [SerializeField]
     private float moveSpeed = 4f;
     private Vector2 direction;
+
+    /// <summary> Movement speed of this enemy. </summary>
+    public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
 
     // AI stuff
     public float nextWaypointDistance = 5f;
@@ -189,6 +195,7 @@ public class Enemy1 : MonoBehaviour, IEnemy
             Destroy(enemyRB.gameObject);
             return;
         }
+        if (Life > maxLife) { Life = maxLife; }
         StartCoroutine(HitFlash());
     }
     #endregion

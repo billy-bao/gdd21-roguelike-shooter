@@ -42,6 +42,9 @@ public class Player : MonoBehaviour, IActor
     private float bulletTimer = 0f;
     [SerializeField]
     private float bulletDmg = 2f; // damage bullet does
+
+    /// <summary> Attack speed of the player. </summary>
+    public float AttackSpeed { get { return 1f / bulletFreq; } set { bulletFreq = 1f / value; } }
     #endregion
 
     #region Unity_funcs
@@ -102,11 +105,11 @@ public class Player : MonoBehaviour, IActor
 
     #region Health_funcs
     // coroutine for flashing red on being damaged
-    private IEnumerator HitFlash()
+    private IEnumerator HitFlash(Color color)
     {
         for (int i = 0; i < 2; i++)
         {
-            Renderer.color = Color.red;
+            Renderer.color = color;
             yield return new WaitForSeconds(0.2f);
             Renderer.color = orgColor;
             yield return new WaitForSeconds(0.2f);
@@ -128,7 +131,8 @@ public class Player : MonoBehaviour, IActor
             Debug.Log("GAME OVER");
             Application.Quit();
         }
-        StartCoroutine(HitFlash());
+        if (Life > maxLife) { Life = maxLife; }
+        StartCoroutine(HitFlash(dmg > 0 ? Color.red : Color.green));
     }
     #endregion
 
