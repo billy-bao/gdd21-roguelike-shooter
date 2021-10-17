@@ -40,11 +40,21 @@ public class Player : MonoBehaviour, IActor
     [SerializeField]
     private float bulletFreq = 1f; // cooldown period of bullet attacks
     private float bulletTimer = 0f;
+    private float meleeFreq = 1.6f;
+    private float meleeTimer = 0f;
     [SerializeField]
     private float bulletDmg = 2f; // damage bullet does
+    public float meleeDmg = 4f; // damage melee attack does
 
+    public float meleeRange = 0.5f; //range of melee attack, currently a circle a little bit to the front of the player
+    public Transform meleePoint; //center of the "melee cirle"
+    public LayerMask enemyLayers;
     /// <summary> Attack speed of the player. </summary>
     public float AttackSpeed { get { return 1f / bulletFreq; } set { bulletFreq = 1f / value; } }
+    #endregion
+
+    #region Amination_Vars
+    public Animator player_animator;
     #endregion
 
     #region Unity_funcs
@@ -73,6 +83,16 @@ public class Player : MonoBehaviour, IActor
         {
             Attack();
         }
+        
+        if(meleeTimer > 0f)
+        {
+            meleeTimer -= Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Melee();
+        }
     }
     #endregion
 
@@ -100,6 +120,29 @@ public class Player : MonoBehaviour, IActor
         obj.GetComponent<Bullet>().Init(looking.normalized * bulletSpd, bulletDmg, Faction.Player, 3f);
         bulletTimer = bulletFreq;
         
+    }
+
+
+    private void Melee() //Brackeys tutorial
+    {
+        //play animation (add this later?)
+        player_animator.SetTrigger("melee_trigger");
+        //detect all the enemies in range (should the range be adjusted as the game progresses? 
+        //for example, do we want the melee to hit the pigeons in any case?)
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleePoint.position, meleeRange, enemyLayers);
+        //decrease all emeny health
+        foreach(Collider2D enemy in hitEnemies)
+        {
+            //Debug.Log("player hit " + enemy.name);
+            enemy.GetComponent<Enemy1>().TakeDamage(meleeDmg);
+        }
+        meleeTimer = meleeFreq;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (meleePoint == null) return;
+        Gizmos.DrawWireSphere(meleePoint.position, meleeRange);
     }
     #endregion
 

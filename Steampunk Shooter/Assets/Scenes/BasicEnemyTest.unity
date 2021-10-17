@@ -121,6 +121,61 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &718119845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7537224283453963733, guid: 1a6ec8f4c189649c086654f45b9e82e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 7537224284336666145}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &718119846
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718119845}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ff36db4c138f57849b0b379d8b3437ba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1907317553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1907317554}
+  m_Layer: 0
+  m_Name: MeleePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1907317554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907317553}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.087, y: 0.026, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2016793489}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1942669679
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +367,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2016793484 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5354077801773249267, guid: 9370c0a0083524c60b998619ab6ec94d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5354077801324899399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2016793485
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016793484}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 94e0d9c94cf12904cb366b20ada8ad1c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!4 &2016793489 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5354077801773249278, guid: 9370c0a0083524c60b998619ab6ec94d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5354077801324899399}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5354077801324899399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -323,6 +409,26 @@ PrefabInstance:
         type: 3}
       propertyPath: maxLife
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5354077801773249266, guid: 9370c0a0083524c60b998619ab6ec94d,
+        type: 3}
+      propertyPath: player_animator
+      value: 
+      objectReference: {fileID: 2016793485}
+    - target: {fileID: 5354077801773249266, guid: 9370c0a0083524c60b998619ab6ec94d,
+        type: 3}
+      propertyPath: meleePoint
+      value: 
+      objectReference: {fileID: 1907317554}
+    - target: {fileID: 5354077801773249266, guid: 9370c0a0083524c60b998619ab6ec94d,
+        type: 3}
+      propertyPath: enemyLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 5354077801773249266, guid: 9370c0a0083524c60b998619ab6ec94d,
+        type: 3}
+      propertyPath: meleeRange
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 5354077801773249267, guid: 9370c0a0083524c60b998619ab6ec94d,
         type: 3}
@@ -467,6 +573,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7537224283453963733, guid: 1a6ec8f4c189649c086654f45b9e82e5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7537224283453963736, guid: 1a6ec8f4c189649c086654f45b9e82e5,
+        type: 3}
+      propertyPath: e1_animator
+      value: 
+      objectReference: {fileID: 718119846}
     - target: {fileID: 7537224283453963737, guid: 1a6ec8f4c189649c086654f45b9e82e5,
         type: 3}
       propertyPath: m_LocalPosition.x

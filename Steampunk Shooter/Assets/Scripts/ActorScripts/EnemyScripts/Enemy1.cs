@@ -50,7 +50,11 @@ public class Enemy1 : MonoBehaviour, IEnemy
     bool reachedEndofPath = false;
     Seeker seeker;
     #endregion
-    
+
+    #region Anim_Objects
+    public Animator e1_animator;
+
+    #endregion
 
     #region Unity_funcs
     private void Awake()
@@ -189,9 +193,11 @@ public class Enemy1 : MonoBehaviour, IEnemy
     public void TakeDamage(float dmg)
     {
         Life -= dmg;
+        e1_animator.SetTrigger("Hit");
         if (Life <= 0f)
         {
             Life = 0f;
+            e1_animator.SetBool("IsDead", true);
             Destroy(enemyRB.gameObject);
             return;
         }
