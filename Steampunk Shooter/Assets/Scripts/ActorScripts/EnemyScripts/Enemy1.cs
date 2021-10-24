@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
@@ -199,4 +200,9 @@ public class Enemy1 : MonoBehaviour, IEnemy
         StartCoroutine(HitFlash());
     }
     #endregion
+
+    public void ApplyEffect(ActiveEffect eff)
+    {
+        throw new NotImplementedException();
+    }
 }

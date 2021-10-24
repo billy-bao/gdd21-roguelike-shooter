@@ -14,4 +14,9 @@ public interface IActor
     /// </summary>
     /// <param name="dmg">amount of damage</param>
     void TakeDamage(float dmg);
+    /// <summary>
+    /// Call this function to apply an effect to this IActor.
+    /// </summary>
+    /// <param name="eff"></param>
+    void ApplyEffect(ActiveEffect eff);
 }

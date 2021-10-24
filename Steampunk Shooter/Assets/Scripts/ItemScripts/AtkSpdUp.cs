@@ -16,7 +16,7 @@ public class AtkSpdUp : Item
         }
         else
         {
-            throw new NotImplementedException();
+            actor.ApplyEffect(new ActiveEffect(ActiveEffect.EffectType.AtkSpdAdd, incAmount, duration));
         }
     }
 }

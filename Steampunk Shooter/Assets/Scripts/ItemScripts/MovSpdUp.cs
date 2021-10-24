@@ -16,7 +16,7 @@ public class MovSpdUp : Item
         }
         else
         {
-            throw new NotImplementedException();
+            actor.ApplyEffect(new ActiveEffect(ActiveEffect.EffectType.MovSpdAdd, incAmount, duration));
         }
     }
 }

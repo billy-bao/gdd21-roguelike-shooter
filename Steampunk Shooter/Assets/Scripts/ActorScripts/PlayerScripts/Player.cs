@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, IActor
     private float inputY;
 
     /// <summary> Movement speed of the player. </summary>
-    public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
+    public float MoveSpeed { set { moveSpeed = value; } get { return moveSpeed; } }
     #endregion
 
     #region Health_vars
@@ -38,20 +38,24 @@ public class Player : MonoBehaviour, IActor
     [SerializeField]
     private float bulletSpd = 15f; // movement speed of bullet
     [SerializeField]
-    private float bulletFreq = 1f; // cooldown period of bullet attacks
+    private float atkSpd = 1f;
     private float bulletTimer = 0f;
+    private float BulletFreq { get { return 1f / AdjustedAtkSpd(); } }
     [SerializeField]
     private float bulletDmg = 2f; // damage bullet does
 
     /// <summary> Attack speed of the player. </summary>
-    public float AttackSpeed { get { return 1f / bulletFreq; } set { bulletFreq = 1f / value; } }
+    public float AttackSpeed { get { return atkSpd; } set { atkSpd = value; } }
     #endregion
+
+    private LinkedList<ActiveEffect> activeEffects;
 
     #region Unity_funcs
     private void Start()
     {
         PlayerRB = GetComponent<Rigidbody2D>();
         Renderer = GetComponent<SpriteRenderer>();
+        activeEffects = new LinkedList<ActiveEffect>();
         Life = MaxLife;
         orgColor = Renderer.color;
     }
@@ -82,7 +86,7 @@ public class Player : MonoBehaviour, IActor
     {
         // normalize diagonal movement
         Vector2 moveNorm = new Vector2(inputX, inputY).normalized;
-        PlayerRB.velocity = moveNorm * moveSpeed;
+        PlayerRB.velocity = moveNorm * AdjustedMovSpd();
     }
     #endregion
 
@@ -98,7 +102,7 @@ public class Player : MonoBehaviour, IActor
         if (bulletTimer > 0f) return;
         GameObject obj = Instantiate(bulletObj, PlayerRB.GetRelativePoint(new Vector2(0, 0)), Quaternion.identity);
         obj.GetComponent<Bullet>().Init(looking.normalized * bulletSpd, bulletDmg, Faction.Player, 3f);
-        bulletTimer = bulletFreq;
+        bulletTimer = BulletFreq;
         
     }
     #endregion
@@ -145,6 +149,75 @@ public class Player : MonoBehaviour, IActor
         bulletDmg += 2f;
         bulletSpd *= 1.3f;
         moveSpeed += 0.5f;
-        bulletFreq *= 0.8f;
+        atkSpd *= 1.3f;
     }
+
+    #region Effect_funcs
+    public void ApplyEffect(ActiveEffect eff)
+    {
+        GameObject effObj = new GameObject("effObj");
+        activeEffects.AddLast(effObj.AddComponent<ActiveEffect>().Clone(eff));
+    }
+
+    // remove expired effects
+    private void CleanEffList()
+    {
+        var curNode = activeEffects.First;
+        while (curNode != null)
+        {
+            if (curNode.Value == null)
+            {
+                var tmpNode = curNode.Next;
+                activeEffects.Remove(curNode);
+                curNode = tmpNode;
+            }
+            else
+            {
+                curNode = curNode.Next;
+            }
+        }
+    }
+
+    public float AdjustedMovSpd()
+    {
+        float adjSpeed = moveSpeed;
+        CleanEffList();
+        foreach(ActiveEffect eff in activeEffects)
+        {
+            if(eff != null)
+            {
+                if (eff.EffType == ActiveEffect.EffectType.MovSpdAdd)
+                {
+                    adjSpeed += eff.Value;
+                }
+                else if(eff.EffType == ActiveEffect.EffectType.MovSpdMul)
+                {
+                    adjSpeed *= eff.Value;
+                }
+            }
+        }
+        return adjSpeed;
+    }
+
+    public float AdjustedAtkSpd()
+    {
+        float adjSpeed = atkSpd;
+        CleanEffList();
+        foreach (ActiveEffect eff in activeEffects)
+        {
+            if (eff != null)
+            {
+                if (eff.EffType == ActiveEffect.EffectType.AtkSpdAdd)
+                {
+                    adjSpeed += eff.Value;
+                }
+                else if (eff.EffType == ActiveEffect.EffectType.AtkSpdMul)
+                {
+                    adjSpeed *= eff.Value;
+                }
+            }
+        }
+        return adjSpeed;
+    }
+    #endregion
 }

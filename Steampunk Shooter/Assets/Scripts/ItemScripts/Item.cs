@@ -9,21 +9,6 @@ public abstract class Item : MonoBehaviour
     [SerializeField]
     protected bool enemyPickUp = false; // can item be picked up by enemies?
 
-
-    #region Unity_funcs
-    // Start is called before the first frame update
-    void Start()
-    {
-        //TODO: add timer initialization
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //TODO: add timer handling
-    }
-    #endregion
-
     /// <summary>
     /// Collision trigger for item pickups. Calls HandlePickup() if needed.
     /// </summary>
