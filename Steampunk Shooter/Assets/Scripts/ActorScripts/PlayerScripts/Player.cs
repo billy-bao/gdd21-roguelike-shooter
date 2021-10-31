@@ -42,6 +42,12 @@ public class Player : MonoBehaviour, IActor
     private float bulletTimer = 0f;
     [SerializeField]
     private float bulletDmg = 2f; // damage bullet does
+    [SerializeField]
+    private int maxBullets = 5;
+    private int currBullets; //Total bullets in one clip (before reloading)
+    [SerializeField]
+    private float reloadFreq = 1f; //Reload Speed
+    private float reloadTimer = 0f;
     #endregion
 
     #region Unity_funcs
@@ -50,6 +56,7 @@ public class Player : MonoBehaviour, IActor
         PlayerRB = GetComponent<Rigidbody2D>();
         Renderer = GetComponent<SpriteRenderer>();
         Life = MaxLife;
+        currBullets = maxBullets;
         orgColor = Renderer.color;
     }
     private void Update()
@@ -65,11 +72,22 @@ public class Player : MonoBehaviour, IActor
             bulletTimer -= Time.deltaTime;
         }
 
+        if (reloadTimer > 0f)
+        {
+            reloadTimer -= Time.deltaTime;
+        }
+
         //check for attacking
-        if(Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             Attack();
         }
+
+        if(Input.GetButtonDown("Reload"))
+        {
+            Reload();
+        }
+
     }
     #endregion
 
@@ -92,11 +110,18 @@ public class Player : MonoBehaviour, IActor
     }
     private void Attack()
     {
-        if (bulletTimer > 0f) return;
+        if (bulletTimer > 0f || currBullets == 0 || reloadTimer > 0f) return; //maybe put these checks in a func later down the line
         GameObject obj = Instantiate(bulletObj, PlayerRB.GetRelativePoint(new Vector2(0, 0)), Quaternion.identity);
         obj.GetComponent<Bullet>().Init(looking.normalized * bulletSpd, bulletDmg, Faction.Player, 3f);
         bulletTimer = bulletFreq;
-        
+        currBullets -= 1;  
+    }
+
+    private void Reload()
+    {
+        reloadTimer = reloadFreq;
+        currBullets = maxBullets;
+        //Insert animation here?
     }
     #endregion
 
