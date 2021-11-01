@@ -45,6 +45,13 @@ public class Player : MonoBehaviour, IActor
     private float BulletFreq { get { return 1f / AdjustedAtkSpd(); } }
     [SerializeField]
     private float bulletDmg = 2f; // damage bullet does
+    [SerializeField]
+    private int maxBullets = 5;
+    private int currBullets; //Total bullets in one clip (before reloading)
+    [SerializeField]
+    private float reloadFreq = 1f; //Reload Speed
+    private float reloadTimer = 0f;
+
     public float meleeDmg = 4f; // damage melee attack does
 
     public float meleeRange = 0.5f; //range of melee attack, currently a circle a little bit to the front of the player
@@ -67,6 +74,7 @@ public class Player : MonoBehaviour, IActor
         Renderer = GetComponent<SpriteRenderer>();
         activeEffects = new LinkedList<ActiveEffect>();
         Life = MaxLife;
+        currBullets = maxBullets;
         orgColor = Renderer.color;
     }
     private void Update()
@@ -82,8 +90,13 @@ public class Player : MonoBehaviour, IActor
             bulletTimer -= Time.deltaTime;
         }
 
+        if (reloadTimer > 0f)
+        {
+            reloadTimer -= Time.deltaTime;
+        }
+
         //check for attacking
-        if(Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             Attack();
         }
@@ -96,6 +109,11 @@ public class Player : MonoBehaviour, IActor
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Melee();
+        }
+
+        if(Input.GetButtonDown("Reload"))
+        {
+            Reload();
         }
     }
     #endregion
@@ -119,11 +137,18 @@ public class Player : MonoBehaviour, IActor
     }
     private void Attack()
     {
-        if (bulletTimer > 0f) return;
+        if (bulletTimer > 0f || currBullets == 0 || reloadTimer > 0f) return; //maybe put these checks in a func later down the line
         GameObject obj = Instantiate(bulletObj, PlayerRB.GetRelativePoint(new Vector2(0, 0)), Quaternion.identity);
         obj.GetComponent<Bullet>().Init(looking.normalized * bulletSpd, bulletDmg, Faction.Player, 3f);
         bulletTimer = BulletFreq;
-        
+        currBullets -= 1;  
+    }
+
+    private void Reload()
+    {
+        reloadTimer = reloadFreq;
+        currBullets = maxBullets;
+        //Insert animation here?
     }
 
 
