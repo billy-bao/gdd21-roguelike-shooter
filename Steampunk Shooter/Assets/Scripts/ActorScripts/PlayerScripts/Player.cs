@@ -80,15 +80,15 @@ public class Player : MonoBehaviour, IActor
         Renderer = GetComponent<SpriteRenderer>();
         
         // Find UI elements.
-        ammoText = GameObject.FindWithTag("AmmoText").GetComponent<TextMeshProUGUI>();
-        healthbar = GameObject.FindWithTag("HealthBar").GetComponent<HealthBar>();
+        ammoText = GameObject.FindWithTag("AmmoText")?.GetComponent<TextMeshProUGUI>();
+        healthbar = GameObject.FindWithTag("HealthBar")?.GetComponent<HealthBar>();
 
         activeEffects = new LinkedList<ActiveEffect>();
         Life = MaxLife;
         currBullets = maxBullets;
-        ammoText.text = "Ammo: " + maxBullets;
+        if (ammoText) ammoText.text = "Ammo: " + maxBullets;
         orgColor = Renderer.color;
-        healthbar.SetMaxHealth((int)MaxLife);
+        healthbar?.SetMaxHealth((int)MaxLife);
 
     }
     private void Update()
@@ -97,7 +97,8 @@ public class Player : MonoBehaviour, IActor
         inputY = Input.GetAxisRaw("Vertical");
         Move();
         UpdateFacing();
-        ammoText.text = "Ammo: " + currBullets;
+        if (ammoText) ammoText.text = "Ammo: " + currBullets;
+
         //cooldown bullets
         if (bulletTimer > 0f)
         {
@@ -209,7 +210,7 @@ public class Player : MonoBehaviour, IActor
     public void TakeDamage(float dmg)
     {
         Life -= dmg;
-        healthbar.SetHealth((int)Life);
+        healthbar?.SetHealth((int)Life);
         if (Life <= 0f)
         {
             Life = 0f;
