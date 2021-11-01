@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class Player : MonoBehaviour, IActor
 {
 
@@ -65,6 +65,12 @@ public class Player : MonoBehaviour, IActor
     public Animator player_animator;
     #endregion
 
+    #region UI_vars
+    [SerializeField]
+    private TextMeshProUGUI ammoText;
+    [SerializeField]
+    private HealthBar healthbar;
+    #endregion
     private LinkedList<ActiveEffect> activeEffects;
 
     #region Unity_funcs
@@ -72,10 +78,18 @@ public class Player : MonoBehaviour, IActor
     {
         PlayerRB = GetComponent<Rigidbody2D>();
         Renderer = GetComponent<SpriteRenderer>();
+        
+        // Find UI elements.
+        ammoText = GameObject.FindWithTag("AmmoText").GetComponent<TextMeshProUGUI>();
+        healthbar = GameObject.FindWithTag("HealthBar").GetComponent<HealthBar>();
+
         activeEffects = new LinkedList<ActiveEffect>();
         Life = MaxLife;
         currBullets = maxBullets;
+        ammoText.text = "Ammo: " + maxBullets;
         orgColor = Renderer.color;
+        healthbar.SetMaxHealth((int)MaxLife);
+
     }
     private void Update()
     {
@@ -83,9 +97,9 @@ public class Player : MonoBehaviour, IActor
         inputY = Input.GetAxisRaw("Vertical");
         Move();
         UpdateFacing();
-
+        ammoText.text = "Ammo: " + currBullets;
         //cooldown bullets
-        if(bulletTimer > 0f)
+        if (bulletTimer > 0f)
         {
             bulletTimer -= Time.deltaTime;
         }
@@ -195,6 +209,7 @@ public class Player : MonoBehaviour, IActor
     public void TakeDamage(float dmg)
     {
         Life -= dmg;
+        healthbar.SetHealth((int)Life);
         if (Life <= 0f)
         {
             Life = 0f;
@@ -207,6 +222,7 @@ public class Player : MonoBehaviour, IActor
         StartCoroutine(HitFlash(dmg > 0 ? Color.red : Color.green));
     }
     #endregion
+
 
     /// <summary>
     /// Placeholder method. Increases player's stats.
