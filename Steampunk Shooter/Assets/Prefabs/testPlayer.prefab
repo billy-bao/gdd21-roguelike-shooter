@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 461020851
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -148,5 +148,16 @@ MonoBehaviour:
   bulletObj: {fileID: 2902184588713837341, guid: 6fc00f4bf2e7a42339bd4ac38c4e3bc6,
     type: 3}
   bulletSpd: 15
-  bulletFreq: 1
+  atkSpd: 1
   bulletDmg: 2
+  maxBullets: 5
+  reloadFreq: 1
+  meleeDmg: 4
+  meleeRange: 0.5
+  meleePoint: {fileID: 0}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  player_animator: {fileID: 0}
+  ammoText: {fileID: 0}
+  healthbar: {fileID: 0}

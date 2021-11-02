@@ -224,6 +224,15 @@ public class Player : MonoBehaviour, IActor
     }
     #endregion
 
+    //Need to finish implementing preserving player stats
+    public void SetStats(int hp, float dmg, float bSpd, float mSpeed, float aSpd)
+    {
+        Life = hp;
+        bulletDmg = dmg;
+        bulletSpd = bSpd;
+        moveSpeed = mSpeed;
+        atkSpd = aSpd;
+    }
 
     /// <summary>
     /// Placeholder method. Increases player's stats.
