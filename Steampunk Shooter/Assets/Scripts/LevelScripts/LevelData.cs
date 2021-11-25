@@ -3,10 +3,12 @@ using System.Collections;
 
 public class LevelData : MonoBehaviour
 {
+    public string sceneName;
     public Transform topExit;
     public Transform bottomExit;
     public Transform leftExit;
     public Transform rightExit;
+    public Transform itemSpawn;
     public WaveManager enemySpawns;
 
     // Use this for initialization
