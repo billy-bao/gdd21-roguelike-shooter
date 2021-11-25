@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         player = playerObj.GetComponent<Player>();
         DontDestroyOnLoad(playerObj);
+        DontDestroyOnLoad(FindObjectOfType<HealthBar>().transform.parent.gameObject);
         //SceneManager.sceneLoaded += OnLevelLoaded;
 
         map = GetComponent<MapGenerator>().GenerateMap(20);

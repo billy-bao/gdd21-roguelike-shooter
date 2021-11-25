@@ -231,28 +231,6 @@ public class Player : MonoBehaviour, IActor
     }
     #endregion
 
-    //Need to finish implementing preserving player stats
-    public void SetStats(int hp, float dmg, float bSpd, float mSpeed, float aSpd)
-    {
-        Life = hp;
-        bulletDmg = dmg;
-        bulletSpd = bSpd;
-        moveSpeed = mSpeed;
-        atkSpd = aSpd;
-    }
-
-    /// <summary>
-    /// Placeholder method. Increases player's stats.
-    /// </summary>
-    public void LevelUp()
-    {
-        Debug.Log("Leveled Up!");
-        bulletDmg += 2f;
-        bulletSpd *= 1.3f;
-        moveSpeed += 0.5f;
-        atkSpd *= 1.3f;
-    }
-
     #region Effect_funcs
     public void ApplyEffect(ActiveEffect eff)
     {
