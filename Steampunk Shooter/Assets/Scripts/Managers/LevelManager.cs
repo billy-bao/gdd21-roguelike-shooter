@@ -4,7 +4,8 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
-
+    //[System.NonSerialized]
+    public GameManager gameManager;
     public LevelData levelData;
     public TileDict tileDict;
 
@@ -45,6 +46,11 @@ public class LevelManager : MonoBehaviour
             wallTilemap.SetTile(grid.WorldToCell(levelData.rightExit.position), t);
             wallTilemap.SetTransformMatrix(grid.WorldToCell(levelData.rightExit.position), Matrix4x4.Rotate(Quaternion.Euler(0, 0, 180)));
         }
+    }
+
+    public virtual void ExitLevel(int dir)
+    {
+        gameManager.ExitLevel(dir);
     }
 
     // Update is called once per frame

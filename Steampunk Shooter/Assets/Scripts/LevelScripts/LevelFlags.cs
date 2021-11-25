@@ -1,6 +1,6 @@
 ﻿using System;
 
-public struct LevelFlags
+public class LevelFlags
 {
     public bool disableTop;
     public bool disableBottom;

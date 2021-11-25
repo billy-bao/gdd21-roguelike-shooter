@@ -30,10 +30,10 @@ public class GameManager : MonoBehaviour
         finished = false;
 
         map = GetComponent<MapGenerator>().GenerateMap(20);
-        LoadLevel(map.startId);
+        LoadLevel(map.startId, -1);
     }
 
-    void LoadLevel(int id)
+    void LoadLevel(int id, int dir)
     {
         curLevelId = id;
         SceneManager.LoadScene(map.levels[id].sceneName);
@@ -63,7 +63,19 @@ public class GameManager : MonoBehaviour
             }
         }
         curLevelManager.Initialize(map.flags[curLevelId]);
+        curLevelManager.gameManager = this;
+    }
 
+    public void ExitLevel(int dir)
+    {
+        Map.Coords newCoords = Map.MoveDir(map.levels[curLevelId].coords, dir);
+        LevelNode newLevel = map.LevelAtCoords(newCoords);
+        if (newLevel == null)
+        {
+            Debug.Log("Error: no new level found on exit. Aborting...");
+            return;
+        }
+        LoadLevel(newLevel.id, LevelNode.oppDir(dir));
     }
 
     
