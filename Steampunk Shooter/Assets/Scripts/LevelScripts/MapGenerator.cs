@@ -10,7 +10,7 @@ public class MapGenerator : MonoBehaviour
     private void Awake()
     {
         if (instance == null) instance = this;
-        else Destroy(gameObject);
+        else if (instance != this) Destroy(gameObject);
     }
 
     public Map GenerateMap(int size)

@@ -4,20 +4,22 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour
 {
-    //[System.NonSerialized]
+    [System.NonSerialized]
     public GameManager gameManager;
     public LevelData levelData;
     public TileDict tileDict;
+    private Grid grid;
 
-    public virtual void Initialize(LevelFlags flags)
+    public virtual void Initialize(LevelFlags flags, Player player, int dir)
     {
         BlockExits(flags);
+        PlacePlayer(player, dir);
     }
 
     //block off disabled exits
     public virtual void BlockExits(LevelFlags flags)
     {
-        Grid grid = FindObjectOfType<Grid>();
+        grid = FindObjectOfType<Grid>();
         if (grid == null)
         {
             Debug.Log("No grid found in level! Aborting...");
@@ -45,6 +47,47 @@ public class LevelManager : MonoBehaviour
         {
             wallTilemap.SetTile(grid.WorldToCell(levelData.rightExit.position), t);
             wallTilemap.SetTransformMatrix(grid.WorldToCell(levelData.rightExit.position), Matrix4x4.Rotate(Quaternion.Euler(0, 0, 180)));
+        }
+    }
+
+    public virtual void PlacePlayer(Player player, int dir)
+    {
+        Debug.Log("Placing player at dir " + dir);
+        switch(dir)
+        {
+            case -1:
+                {
+                    player.transform.position = levelData.itemSpawn.position;
+                    break;
+                }
+            case 0:
+                {
+                    Vector3 v = levelData.topExit.position;
+                    v.y -= 1;
+                    player.transform.position = v;
+                    break;
+                }
+            case 1:
+                {
+                    Vector3 v = levelData.bottomExit.position;
+                    v.y += 1;
+                    player.transform.position = v;
+                    break;
+                }
+            case 2:
+                {
+                    Vector3 v = levelData.leftExit.position;
+                    v.x += 1;
+                    player.transform.position = v;
+                    break;
+                }
+            case 3:
+                {
+                    Vector3 v = levelData.rightExit.position;
+                    v.x -= 1;
+                    player.transform.position = v;
+                    break;
+                }
         }
     }
 

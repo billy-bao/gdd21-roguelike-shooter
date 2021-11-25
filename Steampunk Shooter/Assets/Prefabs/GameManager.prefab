@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultLevelManager: {fileID: 4778516230978896636, guid: 10936e8cdaec04a1a810ea86b7d34424,
     type: 3}
+  playerObj: {fileID: 5354077801773249267, guid: 9370c0a0083524c60b998619ab6ec94d,
+    type: 3}
 --- !u!114 &2612558604255689921
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -73,7 +73,14 @@ public class Player : MonoBehaviour, IActor
     #endregion
     private LinkedList<ActiveEffect> activeEffects;
 
+    public static Player instance;
+
     #region Unity_funcs
+    void Awake()
+    {
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
+    }
     private void Start()
     {
         PlayerRB = GetComponent<Rigidbody2D>();

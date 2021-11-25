@@ -11,11 +11,12 @@ public class GameManager : MonoBehaviour
     public GameObject defaultLevelManager;
     private LevelManager curLevelManager;
 
+    public GameObject playerObj;
+    private Player player;
+
     private Map map;
     private int curLevelId = -1;
-
-    private int level = 1;
-    private bool finished;
+    private int enteringDir = -1;
 
     // Start is called before the first frame update
     void Awake()
@@ -26,8 +27,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+        player = playerObj.GetComponent<Player>();
+        DontDestroyOnLoad(playerObj);
         //SceneManager.sceneLoaded += OnLevelLoaded;
-        finished = false;
 
         map = GetComponent<MapGenerator>().GenerateMap(20);
         LoadLevel(map.startId, -1);
@@ -36,17 +38,14 @@ public class GameManager : MonoBehaviour
     void LoadLevel(int id, int dir)
     {
         curLevelId = id;
+        enteringDir = dir;
         SceneManager.LoadScene(map.levels[id].sceneName);
     }
 
     void OnLevelWasLoaded(int a)//Scene scene, LoadSceneMode mode)
     {
-        finished = false;
-        level++;
-
         // find level manager & data
         GameObject obj = GameObject.FindGameObjectWithTag("LevelData");
-        Debug.Log(obj.ToString());
         if (obj == null)
         {
             Debug.Log("No level data found! Aborting...");
@@ -62,7 +61,7 @@ public class GameManager : MonoBehaviour
                 curLevelManager.levelData = obj.GetComponent<LevelData>();
             }
         }
-        curLevelManager.Initialize(map.flags[curLevelId]);
+        curLevelManager.Initialize(map.flags[curLevelId], player, enteringDir);
         curLevelManager.gameManager = this;
     }
 
@@ -81,13 +80,6 @@ public class GameManager : MonoBehaviour
     
     // Update is called once per frame
     void Update()
-    {
-        GameObject[] enemiesPresent = GameObject.FindGameObjectsWithTag("Enemy");
-        if (!finished && enemiesPresent.Length == 0)
-        {
-            //boardScript.FinishLevel();
-            finished = true;
-        }
-            
+    { 
     }
 }
