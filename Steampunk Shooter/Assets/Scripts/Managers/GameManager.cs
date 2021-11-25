@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public BoardManager boardScript;
 
     public static GameManager instance = null;
+
+    public GameObject defaultLevelManager;
+    private LevelManager curLevelManager;
+
+    private Map map;
+    private int curLevelId = -1;
 
     private int level = 1;
     private bool finished;
@@ -20,21 +26,44 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
-        boardScript = GetComponent<BoardManager>();
+        //SceneManager.sceneLoaded += OnLevelLoaded;
         finished = false;
-        InitGame();
+
+        map = GetComponent<MapGenerator>().GenerateMap(20);
+        LoadLevel(map.startId);
     }
 
-    void InitGame()
+    void LoadLevel(int id)
     {
-        boardScript.SetupScene(level);
+        curLevelId = id;
+        SceneManager.LoadScene(map.levels[id].sceneName);
     }
 
-    void OnLevelWasLoaded(int index)
+    void OnLevelWasLoaded(int a)//Scene scene, LoadSceneMode mode)
     {
         finished = false;
         level++;
-        InitGame();
+
+        // find level manager & data
+        GameObject obj = GameObject.FindGameObjectWithTag("LevelData");
+        Debug.Log(obj.ToString());
+        if (obj == null)
+        {
+            Debug.Log("No level data found! Aborting...");
+            return;
+        }
+        else
+        {
+            curLevelManager = obj.GetComponent<LevelManager>();
+            if(curLevelManager == null)
+            {
+                Debug.Log("Using default LevelManager.");
+                curLevelManager = Instantiate(defaultLevelManager).GetComponent<LevelManager>();
+                curLevelManager.levelData = obj.GetComponent<LevelData>();
+            }
+        }
+        curLevelManager.Initialize(map.flags[curLevelId]);
+
     }
 
     
@@ -44,7 +73,7 @@ public class GameManager : MonoBehaviour
         GameObject[] enemiesPresent = GameObject.FindGameObjectsWithTag("Enemy");
         if (!finished && enemiesPresent.Length == 0)
         {
-            boardScript.FinishLevel();
+            //boardScript.FinishLevel();
             finished = true;
         }
             

@@ -12,7 +12,7 @@ public class WaveManager : MonoBehaviour
     {
         public string name;
 
-        public Transform enemy;
+        public GameObject enemy;
 
         public int amount;
 
@@ -82,18 +82,10 @@ public class WaveManager : MonoBehaviour
         if (nextwave + 1 > waves.Length - 1)
         {
             nextwave = 0;
-            Debug.Log("All waves complete, looping... Leveled Up! ");
-            Player p = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-            p.LevelUp();
-            foreach(Wave w in waves)
-            {
-                w.amount += 5;
-                w.rate *= 2;
-            }
+            Debug.Log("All waves complete!");
         }
         else
         {
-
             nextwave++;
         }
         return;
@@ -133,14 +125,15 @@ public class WaveManager : MonoBehaviour
         yield break;
     }
 
-    void SpawnEnemy (Transform _enemy)
+    void SpawnEnemy (GameObject _enemy)
     {
-
+        Debug.Log("spawnpoint list: ");
+        foreach (Transform t in spawnpoints) Debug.Log(t.position.ToString());
         Transform _sp = spawnpoints[Random.Range(0, spawnpoints.Length)];
 
         Instantiate(_enemy, _sp.position, _sp.rotation);
 
-        Debug.Log("Spawning enemy");
+        Debug.Log("Spawning enemy at position: " + _sp.position.ToString());
     }
 
 }
