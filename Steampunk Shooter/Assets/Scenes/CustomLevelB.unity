@@ -158,10 +158,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739e361f5598c4a79ae21aa28173ebb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topExit: {fileID: 0}
+  topExit: {fileID: 1192772882}
   bottomExit: {fileID: 0}
-  leftExit: {fileID: 0}
-  rightExit: {fileID: 0}
+  leftExit: {fileID: 1578912831}
+  rightExit: {fileID: 740540121}
   enemySpawns: {fileID: 147956488}
 --- !u!114 &147956486
 MonoBehaviour:
@@ -176,6 +176,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelData: {fileID: 147956485}
+  tileDict: {fileID: 6955264858991130755, guid: add67948266ea48149191737417caf45,
+    type: 3}
 --- !u!4 &147956487
 Transform:
   m_ObjectHideFlags: 0

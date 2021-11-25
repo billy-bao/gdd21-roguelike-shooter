@@ -17,7 +17,11 @@ public class MapGenerator : MonoBehaviour
     {
         Map map = new Map();
         map.levels.Add(new LevelNode("CustomLevelB"));
-        map.flags.Add(new LevelFlags());
+        LevelFlags fl = new LevelFlags();
+        fl.disableTop = true;
+        fl.disableLeft = true;
+        fl.disableRight = true;
+        map.flags.Add(fl);
         return map;
     }
 }
