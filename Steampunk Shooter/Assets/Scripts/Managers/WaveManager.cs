@@ -127,12 +127,9 @@ public class WaveManager : MonoBehaviour
 
     void SpawnEnemy (GameObject _enemy)
     {
-        Debug.Log("spawnpoint list: ");
-        foreach (Transform t in spawnpoints) Debug.Log(t.position.ToString());
         Transform _sp = spawnpoints[Random.Range(0, spawnpoints.Length)];
 
         Instantiate(_enemy, _sp.position, _sp.rotation);
-
         Debug.Log("Spawning enemy at position: " + _sp.position.ToString());
     }
 
