@@ -9,15 +9,23 @@ public class LevelManager : MonoBehaviour
     public LevelData levelData;
     public TileDict tileDict;
     private Grid grid;
+    private LevelFlags flags;
+    private bool levelClearTriggered = false;
 
     public virtual void Initialize(LevelFlags flags, Player player, int dir)
     {
-        BlockExits(flags);
+        this.flags = flags;
+        BlockExits();
         PlacePlayer(player, dir);
+        if(flags.roomCleared)
+        {
+            //disable WaveManager
+            levelData.enemySpawns.state = WaveManager.SpawnState.DONE;
+        }
     }
 
     //block off disabled exits
-    public virtual void BlockExits(LevelFlags flags)
+    public virtual void BlockExits()
     {
         grid = FindObjectOfType<Grid>();
         if (grid == null)
@@ -91,6 +99,24 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public virtual void OnEnemyCleared()
+    {
+        if(!flags.roomCleared)
+        {
+            flags.roomCleared = true;
+            flags.droppedItem = levelData.itemDrops[Random.Range(0, levelData.itemDrops.Length)];
+        }
+        if(flags.droppedItem != null)
+        {
+            Instantiate(flags.droppedItem, levelData.itemSpawn.position, Quaternion.identity);
+        }
+    }
+
+    public virtual void OnItemPickup()
+    {
+        flags.droppedItem = null;
+    }
+
     public virtual void ExitLevel(int dir)
     {
         gameManager.ExitLevel(dir);
@@ -99,6 +125,11 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(!levelClearTriggered && levelData.enemySpawns.state == WaveManager.SpawnState.DONE)
+        {
+            levelClearTriggered = true;
+            Debug.Log("All enemies cleared!");
+            OnEnemyCleared();
+        }
     }
 }

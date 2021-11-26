@@ -5,8 +5,6 @@ using System.Collections.Generic;
 public class MapGenerator : MonoBehaviour
 {
     private static MapGenerator instance = null;
-
-    public LevelData[] levelData;
     private void Awake()
     {
         if (instance == null) instance = this;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
 
-    public enum SpawnState {SPAWNING, WAITING, COUNTING };
+    public enum SpawnState {SPAWNING, WAITING, COUNTING, DONE };
 
     [System.Serializable]
     public class Wave
@@ -56,18 +56,20 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-
-        if (Wavecountdown <= 0)
+        if (state == SpawnState.COUNTING)
         {
-            if(state != SpawnState.SPAWNING)
+            if (Wavecountdown <= 0)
             {
-                //start spawning wave
-                StartCoroutine(SpawnWave(waves[nextwave]));
+                if (state != SpawnState.SPAWNING)
+                {
+                    //start spawning wave
+                    StartCoroutine(SpawnWave(waves[nextwave]));
+                }
             }
-        }
-        else
-        {
-            Wavecountdown -= Time.deltaTime;
+            else
+            {
+                Wavecountdown -= Time.deltaTime;
+            }
         }
     }
 
@@ -83,6 +85,7 @@ public class WaveManager : MonoBehaviour
         {
             nextwave = 0;
             Debug.Log("All waves complete!");
+            state = SpawnState.DONE;
         }
         else
         {

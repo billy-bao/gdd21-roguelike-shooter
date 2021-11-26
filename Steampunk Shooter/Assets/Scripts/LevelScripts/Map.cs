@@ -22,16 +22,18 @@ public class Map
         }
     }
 
-    public void AddLevel(LevelNode lvl, LevelFlags flags)
+    public int AddLevel(LevelNode lvl, LevelFlags flags)
     {
         lvl.id = levels.Count;
         levels.Add(lvl);
         this.flags.Add(flags);
         mapLayout[lvl.coords.y, lvl.coords.x] = lvl.id;
+        return lvl.id;
     }
 
     public LevelNode LevelAtCoords(Coords c)
     {
+        if (mapLayout[c.y, c.x] == -1) return null;
         return levels[mapLayout[c.y, c.x]];
     }
 

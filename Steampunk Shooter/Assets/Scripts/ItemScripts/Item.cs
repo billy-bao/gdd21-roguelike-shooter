@@ -28,6 +28,8 @@ public abstract class Item : MonoBehaviour
         if(hitObject != null)
         {
             HandlePickup(hitObject);
+            // clear item from level flags
+            FindObjectOfType<LevelManager>()?.OnItemPickup();
             Destroy(gameObject);
         }
     }

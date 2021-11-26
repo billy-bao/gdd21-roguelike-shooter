@@ -388,7 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f352c565683a745f993224a53afc053a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
   levelData: {fileID: 4778516230978896637}
   tileDict: {fileID: 6955264858991130755, guid: add67948266ea48149191737417caf45,
     type: 3}
@@ -410,6 +409,10 @@ MonoBehaviour:
   leftExit: {fileID: 4778516230126595527}
   rightExit: {fileID: 4778516231434903329}
   itemSpawn: {fileID: 4778516230080926238}
+  itemDrops:
+  - {fileID: 548372735, guid: 87d11370effde496a8c28bdbb343f607, type: 3}
+  - {fileID: 6447669857741898240, guid: 4d90ca3acec5b419e98d76e713ea8087, type: 3}
+  - {fileID: 4243929869693920612, guid: 85e7c1a0a95274af2a57a5ae6821ce50, type: 3}
   enemySpawns: {fileID: 4778516230978896624}
 --- !u!114 &4778516230978896624
 MonoBehaviour:

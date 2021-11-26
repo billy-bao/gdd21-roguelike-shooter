@@ -9,6 +9,7 @@ public class LevelData : MonoBehaviour
     public Transform leftExit;
     public Transform rightExit;
     public Transform itemSpawn;
+    public Item[] itemDrops;
     public WaveManager enemySpawns;
 
     // Use this for initialization

@@ -121,12 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &134158153 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5354077801773249267, guid: 9370c0a0083524c60b998619ab6ec94d,
-    type: 3}
-  m_PrefabInstance: {fileID: 987505411}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &147956484
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +158,10 @@ MonoBehaviour:
   leftExit: {fileID: 1578912831}
   rightExit: {fileID: 740540121}
   itemSpawn: {fileID: 1129821158}
+  itemDrops:
+  - {fileID: 548372735, guid: 87d11370effde496a8c28bdbb343f607, type: 3}
+  - {fileID: 6447669857741898240, guid: 4d90ca3acec5b419e98d76e713ea8087, type: 3}
+  - {fileID: 4243929869693920612, guid: 85e7c1a0a95274af2a57a5ae6821ce50, type: 3}
   enemySpawns: {fileID: 147956488}
 --- !u!114 &147956486
 MonoBehaviour:
@@ -3913,7 +3911,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49487c2c6d0905f4aab7be2cbf551f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 134158153}
 --- !u!1001 &2100524910
 PrefabInstance:
   m_ObjectHideFlags: 0
