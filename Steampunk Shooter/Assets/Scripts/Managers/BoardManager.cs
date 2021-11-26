@@ -35,7 +35,8 @@ public class BoardManager : MonoBehaviour
     private Transform boardHolder;
     private List<Vector3> gridPositions = new List<Vector3>();
 
-    void InitializeList()
+    #region Random grid board
+    void InitializeGrid()
     {
         gridPositions.Clear();
 
@@ -48,7 +49,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    void BoardSetup()
+    void RandomBoardSetup(int enemyCount)
     {
         boardHolder = new GameObject("Board").transform;
         
@@ -60,14 +61,23 @@ public class BoardManager : MonoBehaviour
                 if (x == -1 || x == columns || y == -1 || y == rows)
                     toInstantiate = outerWallTilesTiles[Random.Range(0, outerWallTilesTiles.Length)];
 
-                GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity);
 
                 instance.transform.SetParent(boardHolder);
             }
         }
+
+        InitializeGrid();
+        LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
+        LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+        Instantiate(player, new Vector3(1, 1, 0f), Quaternion.identity);
     }
 
-    Vector3 RandomPosition()
+    /// <summary>
+    /// Returns a random position from the grid list AND REMOVES that position from the grid list.
+    /// </summary>
+    /// <returns>A position.</returns>
+    Vector3 RandomGridPosition()
     {
         int randomIndex = Random.Range(0, gridPositions.Count);
         Vector3 randomPosition = gridPositions[randomIndex];
@@ -81,16 +91,18 @@ public class BoardManager : MonoBehaviour
 
         for (int i = 0; i < objectCount; i++)
         {
-            Vector3 randomPosition = RandomPosition();
+            Vector3 randomPosition = RandomGridPosition();
             GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
             Instantiate(tileChoice, randomPosition, Quaternion.identity);
         }
     }
 
+    #endregion
+
     void SpawnItemReward()
     {
         GameObject item = itemTiles[Random.Range(0, itemTiles.Length)];
-        item = Instantiate(item, new Vector3(1, 1, 0f), Quaternion.identity) as GameObject;
+        item = Instantiate(item, RandomGridPosition(), Quaternion.identity) as GameObject;
     }
 
     void SpawnExit()
@@ -106,13 +118,7 @@ public class BoardManager : MonoBehaviour
 
     public void SetupScene(int level)
     {
-        BoardSetup();
-        InitializeList();
-        LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
-        int enemyCount = level; //CHANGE LATER WITH SOME DIFFICULTY SCALED TO LEVEL NUMBER
-        LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
-/*        Instantiate(exit, new Vector3(columns - 1, rows - 1, 0f), Quaternion.identity);*/
-        Instantiate(player, new Vector3(1, 1, 0f), Quaternion.identity);
+        RandomBoardSetup(level);
     }
     // Start is called before the first frame update
     void Start()

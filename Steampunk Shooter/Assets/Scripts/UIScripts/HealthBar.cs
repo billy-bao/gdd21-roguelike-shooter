@@ -18,4 +18,12 @@ public class HealthBar : MonoBehaviour
     {
         slider.value = health;
     }
+
+    //singleton stuff
+    public static HealthBar instance;
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(transform.parent.gameObject);
+    }
 }
