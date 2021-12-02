@@ -101,6 +101,12 @@ public class LevelManager : MonoBehaviour
 
     public virtual void OnEnemyCleared()
     {
+        if(flags == null)
+        {
+            // single level testing
+            Instantiate(levelData.itemDrops[Random.Range(0, levelData.itemDrops.Length)], levelData.itemSpawn.position, Quaternion.identity);
+            return;
+        }
         if(!flags.roomCleared)
         {
             flags.roomCleared = true;
@@ -114,7 +120,10 @@ public class LevelManager : MonoBehaviour
 
     public virtual void OnItemPickup()
     {
-        flags.droppedItem = null;
+        if (flags != null)
+        {
+            flags.droppedItem = null;
+        }
     }
 
     public virtual void ExitLevel(int dir)
