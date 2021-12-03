@@ -11,7 +11,6 @@ public class LevelManager : MonoBehaviour
     private Grid grid;
     private LevelFlags flags;
     private bool levelClearTriggered = false;
-
     public virtual void Initialize(LevelFlags flags, Player player, int dir)
     {
         this.flags = flags;
@@ -22,6 +21,7 @@ public class LevelManager : MonoBehaviour
             //disable WaveManager
             levelData.enemySpawns.state = WaveManager.SpawnState.DONE;
         }
+
     }
 
     //block off disabled exits
@@ -134,11 +134,13 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!levelClearTriggered && levelData.enemySpawns.state == WaveManager.SpawnState.DONE)
+
+        if (!levelClearTriggered && levelData.enemySpawns.state == WaveManager.SpawnState.DONE)
         {
             levelClearTriggered = true;
             Debug.Log("All enemies cleared!");
             OnEnemyCleared();
         }
+
     }
 }

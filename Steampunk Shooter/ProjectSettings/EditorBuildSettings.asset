@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LongLevel.unity
     guid: 42fe261ed995a6e418e31345801a53ae
+  - enabled: 1
+    path: Assets/Scenes/PokemonLevel.unity
+    guid: 20b9d043ff36f364e91242b91a2fa993
   m_configObjects: {}

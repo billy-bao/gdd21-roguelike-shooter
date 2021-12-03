@@ -10,6 +10,9 @@ TagManager:
   - HealthBar
   - Exit
   - LevelData
+  - EnemyText
+  - ClearText
+  - GameOver
   layers:
   - Default
   - TransparentFX
