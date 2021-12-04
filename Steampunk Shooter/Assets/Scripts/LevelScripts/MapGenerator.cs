@@ -20,20 +20,29 @@ public class MapGenerator : MonoBehaviour
 
         LevelNode n2 = new LevelNode("CustomLevelB", new Map.Coords(4, 5));
         fl = new LevelFlags();
-        fl.disableLeft = true;
         map.AddLevel(n2, fl);
 
-        LevelNode n3 = new LevelNode("LongLevel", new Map.Coords(4, 3));
+        LevelNode n3 = new LevelNode("PokemonLevel", new Map.Coords(3, 5));
         fl = new LevelFlags();
         fl.disableTop = true;
+        fl.disableLeft = true;
+        fl.disableBottom = true;
         map.AddLevel(n3, fl);
 
-        LevelNode n4 = new LevelNode("CustomLevelB", new Map.Coords(5, 5));
+        LevelNode n4 = new LevelNode("LongLevel", new Map.Coords(4, 3));
         fl = new LevelFlags();
         fl.disableTop = true;
-        fl.disableRight = true;
         map.AddLevel(n4, fl);
 
+        LevelNode n5 = new LevelNode("CustomLevelB", new Map.Coords(5, 5));
+        fl = new LevelFlags();
+        fl.disableRight = true;
+        map.AddLevel(n5, fl);
+
+        LevelNode n6 = new LevelNode("LongLevel", new Map.Coords(5, 4));
+        fl = new LevelFlags();
+        fl.disableTop = true;
+        map.AddLevel(n6, fl);
         return map;
     }
 }

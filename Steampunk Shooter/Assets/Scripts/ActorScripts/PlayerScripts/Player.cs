@@ -69,7 +69,14 @@ public class Player : MonoBehaviour, IActor
     [SerializeField]
     private TextMeshProUGUI ammoText;
     [SerializeField]
+    private TextMeshProUGUI enemyText;
+
+    private GameObject gameOver;
+
+    [SerializeField]
     private HealthBar healthbar;
+
+    private int numEnemies;
     #endregion
     private LinkedList<ActiveEffect> activeEffects;
 
@@ -89,11 +96,15 @@ public class Player : MonoBehaviour, IActor
         // Find UI elements.
         ammoText = GameObject.FindWithTag("AmmoText")?.GetComponent<TextMeshProUGUI>();
         healthbar = GameObject.FindWithTag("HealthBar")?.GetComponent<HealthBar>();
-
+        enemyText = GameObject.FindWithTag("EnemyText")?.GetComponent<TextMeshProUGUI>();
+        gameOver = GameObject.FindWithTag("GameOver");
+        numEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         activeEffects = new LinkedList<ActiveEffect>();
         Life = MaxLife;
         currBullets = maxBullets;
         if (ammoText) ammoText.text = "Ammo: " + maxBullets;
+        if (enemyText) enemyText.text = "Enemies: " + numEnemies;
+        if (gameOver) gameOver.SetActive(false);
         orgColor = Renderer.color;
         healthbar?.SetMaxHealth((int)MaxLife);
 
@@ -104,8 +115,10 @@ public class Player : MonoBehaviour, IActor
         inputY = Input.GetAxisRaw("Vertical");
         Move();
         UpdateFacing();
-        if (ammoText) ammoText.text = "Ammo: " + currBullets;
 
+        numEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        if (ammoText) ammoText.text = "Ammo: " + currBullets;
+        if (enemyText) enemyText.text = "Enemies: " + numEnemies;
         //cooldown bullets
         if (bulletTimer > 0f)
         {
@@ -224,6 +237,7 @@ public class Player : MonoBehaviour, IActor
             PlayerRB.gameObject.SetActive(false);
             // do game over
             Debug.Log("GAME OVER");
+            gameOver.SetActive(true);
             Application.Quit();
         }
         if (Life > maxLife) { Life = maxLife; }
