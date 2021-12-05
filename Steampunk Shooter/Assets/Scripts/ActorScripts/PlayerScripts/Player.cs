@@ -199,7 +199,7 @@ public class Player : MonoBehaviour, IActor
     private void Melee() //Brackeys tutorial
     {
         //play animation (add this later?)
-        player_animator.SetTrigger("melee_trigger");
+        player_animator?.SetTrigger("melee_trigger");
         //detect all the enemies in range (should the range be adjusted as the game progresses? 
         //for example, do we want the melee to hit the pigeons in any case?)
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleePoint.position, meleeRange, enemyLayers);
@@ -248,7 +248,7 @@ public class Player : MonoBehaviour, IActor
             Debug.Log("GAME OVER");
             gameOver.SetActive(true);
             PlayGameOverMusic();
-            Application.Quit();
+            // Application.Quit();
         }
         if (Life > maxLife) { Life = maxLife; }
         StartCoroutine(HitFlash(dmg > 0 ? Color.red : Color.green));
