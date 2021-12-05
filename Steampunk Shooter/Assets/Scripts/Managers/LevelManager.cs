@@ -111,6 +111,7 @@ public class LevelManager : MonoBehaviour
         {
             flags.roomCleared = true;
             flags.droppedItem = levelData.itemDrops[Random.Range(0, levelData.itemDrops.Length)];
+            gameManager.OnLevelCleared();
         }
         if(flags.droppedItem != null)
         {

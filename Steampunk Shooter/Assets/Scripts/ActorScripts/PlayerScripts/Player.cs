@@ -10,6 +10,13 @@ public class Player : MonoBehaviour, IActor
     SpriteRenderer Renderer;
     #endregion
 
+    #region Audio_Vars
+    [SerializeField]
+    private SoundManager soundManager;
+    [SerializeField]
+    private AudioClip gameOverMusic;
+    #endregion
+
     #region Movement_vars
     [SerializeField]
     private float moveSpeed = 5f;
@@ -131,7 +138,7 @@ public class Player : MonoBehaviour, IActor
         }
 
         //check for attacking
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
             Attack();
         }
@@ -238,6 +245,7 @@ public class Player : MonoBehaviour, IActor
             // do game over
             Debug.Log("GAME OVER");
             gameOver.SetActive(true);
+            PlayGameOverMusic();
             Application.Quit();
         }
         if (Life > maxLife) { Life = maxLife; }
@@ -311,6 +319,13 @@ public class Player : MonoBehaviour, IActor
             }
         }
         return adjSpeed;
+    }
+    #endregion
+
+    #region Audio_funcs
+    private void PlayGameOverMusic()
+    {
+        soundManager.ChangeBGM(gameOverMusic);
     }
     #endregion
 }
