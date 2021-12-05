@@ -94,6 +94,8 @@ public class Player : MonoBehaviour, IActor
     {
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
+
+        soundManager = FindObjectOfType<SoundManager>();
     }
     private void Start()
     {
