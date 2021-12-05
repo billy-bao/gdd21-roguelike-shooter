@@ -8,7 +8,7 @@ public class ExitScript : MonoBehaviour
     public int dir; //0 = top, 1 = bottom, 2 = left, 3 = right
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "Player" && dir < 4)
         {
             FindObjectOfType<LevelManager>().ExitLevel(dir);
         }

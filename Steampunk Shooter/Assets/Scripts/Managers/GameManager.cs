@@ -14,9 +14,13 @@ public class GameManager : MonoBehaviour
     public GameObject playerObj;
     private Player player;
 
+    public AudioClip winMusic;
+    public SoundManager soundManager;
+
     private Map map;
     private int curLevelId = -1;
     private int enteringDir = -1;
+    private int levelsCleared = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -33,6 +37,7 @@ public class GameManager : MonoBehaviour
         //SceneManager.sceneLoaded += OnLevelLoaded;
 
         map = GetComponent<MapGenerator>().GenerateMap((int)(Random.value * 5f) + 7);
+        levelsCleared = 0;
         LoadLevel(map.startId, -1);
     }
 
@@ -79,8 +84,13 @@ public class GameManager : MonoBehaviour
     }
 
     
-    // Update is called once per frame
-    void Update()
-    { 
+    public void OnLevelCleared()
+    {
+        levelsCleared++;
+        if(levelsCleared >= map.levels.Count)
+        {
+            //win?
+            soundManager.ChangeBGM(winMusic);
+        }
     }
 }

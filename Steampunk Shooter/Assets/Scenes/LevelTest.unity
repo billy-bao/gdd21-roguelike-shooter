@@ -516,6 +516,16 @@ PrefabInstance:
       propertyPath: musicObj
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7815260952343652782, guid: 7b5f10dfa50eb486e86a3b53cc0b2018,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 875321076}
+    - target: {fileID: 7815260952343652782, guid: 7b5f10dfa50eb486e86a3b53cc0b2018,
+        type: 3}
+      propertyPath: winMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 1c5fe8da8e52ed14a8bed944fd157b0b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b5f10dfa50eb486e86a3b53cc0b2018, type: 3}
 --- !u!1001 &1416664292
