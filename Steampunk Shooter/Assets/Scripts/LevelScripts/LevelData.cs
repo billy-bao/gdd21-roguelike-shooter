@@ -15,7 +15,7 @@ public class LevelData : MonoBehaviour
 
     public bool[] openDirs()
     {
-        if (this.dirs.Length == 4) return this.dirs;
+        if (this.dirs != null && this.dirs.Length == 4) return this.dirs;
         bool[] dirs = new bool[4];
         if (topExit != null) dirs[0] = true;
         if (bottomExit != null) dirs[1] = true;
