@@ -535,6 +535,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 390731409777409651, guid: c8a5349a61e792c469d1777ea03093f8,
+        type: 3}
+      propertyPath: m_margin.x
+      value: -69.086174
+      objectReference: {fileID: 0}
+    - target: {fileID: 390731409777409651, guid: c8a5349a61e792c469d1777ea03093f8,
+        type: 3}
+      propertyPath: m_margin.z
+      value: -39.89471
+      objectReference: {fileID: 0}
+    - target: {fileID: 390731409777409651, guid: c8a5349a61e792c469d1777ea03093f8,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 258
+      objectReference: {fileID: 0}
     - target: {fileID: 2569704222290012939, guid: c8a5349a61e792c469d1777ea03093f8,
         type: 3}
       propertyPath: m_Name
@@ -544,6 +559,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3332349103294193619, guid: c8a5349a61e792c469d1777ea03093f8,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3375
       objectReference: {fileID: 0}
     - target: {fileID: 5736970469325644637, guid: c8a5349a61e792c469d1777ea03093f8,
         type: 3}

@@ -129,6 +129,14 @@ MonoBehaviour:
   waves:
   - name: 
     enemy: {fileID: 1750464410710193996, guid: 1a6ec8f4c189649c086654f45b9e82e5, type: 3}
+    amount: 1
+    rate: 1
+  - name: 
+    enemy: {fileID: 1750464410710193996, guid: 1a6ec8f4c189649c086654f45b9e82e5, type: 3}
+    amount: 2
+    rate: 100
+  - name: 
+    enemy: {fileID: 1750464410710193996, guid: 1a6ec8f4c189649c086654f45b9e82e5, type: 3}
     amount: 5
     rate: 100
   spawnpoints:
@@ -137,7 +145,7 @@ MonoBehaviour:
   - {fileID: 4877108820204623904}
   - {fileID: 4877108819331213836}
   - {fileID: 4877108820555625786}
-  timeBetweenWaves: 0.01
+  timeBetweenWaves: 1
   state: 2
 --- !u!1 &4877108819331213837
 GameObject:

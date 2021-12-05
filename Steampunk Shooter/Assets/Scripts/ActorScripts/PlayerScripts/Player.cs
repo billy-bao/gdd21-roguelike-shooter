@@ -77,6 +77,7 @@ public class Player : MonoBehaviour, IActor
     private TextMeshProUGUI ammoText;
     [SerializeField]
     private TextMeshProUGUI enemyText;
+    public bool areEnemiesCleared = false;
 
     public static GameObject gameOver;
 
@@ -127,7 +128,19 @@ public class Player : MonoBehaviour, IActor
 
         numEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         if (ammoText) ammoText.text = "Ammo: " + currBullets;
-        if (enemyText) enemyText.text = "Enemies: " + numEnemies;
+        if (enemyText)
+        {
+            if (!areEnemiesCleared)
+            {
+                enemyText.color = Color.white;
+                enemyText.text = "Enemies: " + numEnemies;
+            }
+            else
+            {
+                enemyText.color = Color.green;
+                enemyText.text = "Level cleared!";
+            }
+        }
         //cooldown bullets
         if (bulletTimer > 0f)
         {

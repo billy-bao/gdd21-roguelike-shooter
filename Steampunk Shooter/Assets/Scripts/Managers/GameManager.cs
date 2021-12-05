@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     private int enteringDir = -1;
     private int levelsCleared = 0;
 
-    // Start is called before the first frame update
     void Awake()
     {
         if (instance == null)
