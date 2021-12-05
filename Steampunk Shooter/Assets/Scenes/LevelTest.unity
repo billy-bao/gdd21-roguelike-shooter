@@ -535,6 +535,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 390731409777409651, guid: c8a5349a61e792c469d1777ea03093f8,
+        type: 3}
+      propertyPath: m_margin.x
+      value: -69.086174
+      objectReference: {fileID: 0}
+    - target: {fileID: 390731409777409651, guid: c8a5349a61e792c469d1777ea03093f8,
+        type: 3}
+      propertyPath: m_margin.z
+      value: -39.89471
+      objectReference: {fileID: 0}
+    - target: {fileID: 390731409777409651, guid: c8a5349a61e792c469d1777ea03093f8,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 258
+      objectReference: {fileID: 0}
     - target: {fileID: 2569704222290012939, guid: c8a5349a61e792c469d1777ea03093f8,
         type: 3}
       propertyPath: m_Name

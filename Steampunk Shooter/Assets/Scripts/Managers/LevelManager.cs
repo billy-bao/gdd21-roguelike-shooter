@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour
     protected Grid grid;
     protected LevelFlags flags;
     protected bool levelClearTriggered = false;
+    protected Player player;
+
     public virtual void Initialize(LevelFlags flags, Player player, int dir)
     {
         this.flags = flags;
@@ -26,7 +28,12 @@ public class LevelManager : MonoBehaviour
                 Destroy(enemy);
             }
         }
+        this.player = player;
+    }
 
+    void Start()
+    {
+        if (player == null) player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     //block off disabled exits
@@ -106,7 +113,8 @@ public class LevelManager : MonoBehaviour
 
     public virtual void OnEnemyCleared()
     {
-        if(flags == null)
+        if (player != null) player.areEnemiesCleared = true;
+        if (flags == null)
         {
             // single level testing
             Instantiate(levelData.itemDrops[Random.Range(0, levelData.itemDrops.Length)], levelData.itemSpawn.position, Quaternion.identity);
@@ -134,19 +142,18 @@ public class LevelManager : MonoBehaviour
 
     public virtual void ExitLevel(int dir)
     {
+        if (player != null) player.areEnemiesCleared = false;
         gameManager.ExitLevel(dir);
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (!levelClearTriggered && levelData.enemySpawns.state == WaveManager.SpawnState.DONE)
         {
             levelClearTriggered = true;
             Debug.Log("All enemies cleared!");
             OnEnemyCleared();
         }
-
     }
 }
