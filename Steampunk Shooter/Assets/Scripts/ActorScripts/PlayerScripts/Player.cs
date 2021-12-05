@@ -71,7 +71,7 @@ public class Player : MonoBehaviour, IActor
     [SerializeField]
     private TextMeshProUGUI enemyText;
 
-    private GameObject gameOver;
+    public static GameObject gameOver;
 
     [SerializeField]
     private HealthBar healthbar;
@@ -114,7 +114,7 @@ public class Player : MonoBehaviour, IActor
         inputX = Input.GetAxisRaw("Horizontal");
         inputY = Input.GetAxisRaw("Vertical");
         Move();
-        UpdateFacing();
+        if (!PauseMenu.GameIsPaused) UpdateFacing();
 
         numEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         if (ammoText) ammoText.text = "Ammo: " + currBullets;
@@ -146,7 +146,7 @@ public class Player : MonoBehaviour, IActor
             Melee();
         }
 
-        if(Input.GetButtonDown("Reload"))
+        if(Input.GetButtonDown("Reload") && !PauseMenu.GameIsPaused)
         {
             Reload();
         }
@@ -172,7 +172,7 @@ public class Player : MonoBehaviour, IActor
     }
     private void Attack()
     {
-        if (bulletTimer > 0f || currBullets == 0 || reloadTimer > 0f) return; //maybe put these checks in a func later down the line
+        if (bulletTimer > 0f || currBullets == 0 || reloadTimer > 0f || PauseMenu.GameIsPaused) return; //maybe put these checks in a func later down the line
         GameObject obj = Instantiate(bulletObj, PlayerRB.GetRelativePoint(new Vector2(0, 0)), Quaternion.identity);
         obj.GetComponent<Bullet>().Init(looking.normalized * bulletSpd, bulletDmg, Faction.Player, 3f);
         bulletTimer = BulletFreq;
