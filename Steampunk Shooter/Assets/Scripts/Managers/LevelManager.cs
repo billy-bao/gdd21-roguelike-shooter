@@ -20,6 +20,11 @@ public class LevelManager : MonoBehaviour
         {
             //disable WaveManager
             levelData.enemySpawns.state = WaveManager.SpawnState.DONE;
+            //clear all enemies
+            foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                Destroy(enemy);
+            }
         }
 
     }
