@@ -8,9 +8,9 @@ public class LevelManager : MonoBehaviour
     public GameManager gameManager;
     public LevelData levelData;
     public TileDict tileDict;
-    private Grid grid;
-    private LevelFlags flags;
-    private bool levelClearTriggered = false;
+    protected Grid grid;
+    protected LevelFlags flags;
+    protected bool levelClearTriggered = false;
     public virtual void Initialize(LevelFlags flags, Player player, int dir)
     {
         this.flags = flags;
@@ -36,22 +36,22 @@ public class LevelManager : MonoBehaviour
         // get the tilemap with a collider
         Tilemap wallTilemap = grid.gameObject.GetComponentInChildren<TilemapCollider2D>().gameObject.GetComponent<Tilemap>();
         Tile t = tileDict.d[(int)TileDict.TileDictId.SideWall];
-        if (flags.disableTop)
+        if (flags.disableDir[0])
         {
             wallTilemap.SetTile(grid.WorldToCell(levelData.topExit.position), t);
             wallTilemap.SetTransformMatrix(grid.WorldToCell(levelData.topExit.position), Matrix4x4.Rotate(Quaternion.Euler(0, 0, -90)));
         }
-        if (flags.disableBottom)
+        if (flags.disableDir[1])
         {
             wallTilemap.SetTile(grid.WorldToCell(levelData.bottomExit.position), t);
             wallTilemap.SetTransformMatrix(grid.WorldToCell(levelData.bottomExit.position), Matrix4x4.Rotate(Quaternion.Euler(0, 0, 90)));
         }
-        if (flags.disableLeft)
+        if (flags.disableDir[2])
         {
             wallTilemap.SetTile(grid.WorldToCell(levelData.leftExit.position), t);
             //no rotation needed
         }
-        if (flags.disableRight)
+        if (flags.disableDir[3])
         {
             wallTilemap.SetTile(grid.WorldToCell(levelData.rightExit.position), t);
             wallTilemap.SetTransformMatrix(grid.WorldToCell(levelData.rightExit.position), Matrix4x4.Rotate(Quaternion.Euler(0, 0, 180)));
@@ -118,7 +118,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public virtual void OnItemPickup()
+    public virtual void OnItemPickup(Item i)
     {
         if (flags != null)
         {

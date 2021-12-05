@@ -123,6 +123,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPickUp: 1
   enemyPickUp: 0
-  incAmount: 5
+  incAmount: 2
   permanent: 1
   duration: 10

@@ -2,11 +2,13 @@
 
 public class LevelFlags
 {
-    public bool disableTop;
-    public bool disableBottom;
-    public bool disableLeft;
-    public bool disableRight;
-
+    public bool[] disableDir;
     public bool roomCleared;
     public Item droppedItem;
+    public Object customFlags;
+
+    public LevelFlags()
+    {
+        disableDir = new bool[4];
+    }
 }

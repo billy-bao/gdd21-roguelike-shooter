@@ -13,6 +13,7 @@ TagManager:
   - EnemyText
   - ClearText
   - GameOver
+  - Fog
   layers:
   - Default
   - TransparentFX

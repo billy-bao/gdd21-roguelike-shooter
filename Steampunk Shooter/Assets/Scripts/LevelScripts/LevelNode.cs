@@ -4,6 +4,7 @@ public class LevelNode
     public int id;
     public string sceneName;
     public Map.Coords coords;
+    public LevelFlags flags;
 
     public LevelNode(string sceneName, Map.Coords coords)
     {

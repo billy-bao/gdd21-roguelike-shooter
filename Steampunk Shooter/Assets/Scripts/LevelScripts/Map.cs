@@ -7,6 +7,7 @@ public class Map
     public List<LevelFlags> flags;
     public int startId = 0;
     public int[,] mapLayout;
+    public int minX, maxX, minY, maxY;
 
     public Map(int width, int height)
     {
@@ -24,10 +25,29 @@ public class Map
 
     public int AddLevel(LevelNode lvl, LevelFlags flags)
     {
+        //add level
         lvl.id = levels.Count;
+        lvl.flags = flags;
         levels.Add(lvl);
         this.flags.Add(flags);
         mapLayout[lvl.coords.y, lvl.coords.x] = lvl.id;
+
+        //update map boundaries
+        if (levels.Count == 1)
+        {
+            minX = lvl.coords.x;
+            maxX = lvl.coords.x;
+            minY = lvl.coords.y;
+            maxY = lvl.coords.y;
+        }
+        else
+        {
+            if (lvl.coords.x < minX) minX = lvl.coords.x;
+            if (lvl.coords.x > maxX) maxX = lvl.coords.x;
+            if (lvl.coords.y < minY) minY = lvl.coords.y;
+            if (lvl.coords.y > maxY) maxY = lvl.coords.y;
+        }
+
         return lvl.id;
     }
 
@@ -35,6 +55,29 @@ public class Map
     {
         if (mapLayout[c.y, c.x] == -1) return null;
         return levels[mapLayout[c.y, c.x]];
+    }
+
+    public override string ToString()
+    {
+        string str = "";
+        str += "<Map object size " + mapLayout.GetLength(1) + "x" + mapLayout.GetLength(0) + ":\n";
+        for (int i = minY; i <= maxY; i++)
+        {
+            for (int j = minX; j <= maxX; j++)
+            {
+                str += FormatRoomId(mapLayout[i, j]) + " ";
+            }
+            str += "\n";
+        }
+        return str + ">\n";
+    }
+
+    private string FormatRoomId(int id)
+    {
+        string str = id.ToString();
+        if (id == -1) str = "x";
+        int padToLen = (levels.Count - 1).ToString().Length;
+        return str.PadLeft(padToLen);
     }
 
     public readonly struct Coords

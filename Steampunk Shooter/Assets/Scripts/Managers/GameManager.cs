@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(FindObjectOfType<HealthBar>().transform.parent.gameObject);
         //SceneManager.sceneLoaded += OnLevelLoaded;
 
-        map = GetComponent<MapGenerator>().GenerateMap(20);
+        map = GetComponent<MapGenerator>().GenerateMap((int)(Random.value * 5f) + 7);
         LoadLevel(map.startId, -1);
     }
 

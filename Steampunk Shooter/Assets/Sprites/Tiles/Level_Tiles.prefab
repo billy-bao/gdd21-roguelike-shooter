@@ -40,7 +40,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3701316673896099689}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 0}
+  m_CellSize: {x: 2.3, y: 2.9416666, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
@@ -181,6 +181,15 @@ Tilemap:
       m_TileIndex: 7
       m_TileSpriteIndex: 7
       m_TileMatrixIndex: 2
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
+  - first: {x: -3, y: -1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 11
+      m_TileSpriteIndex: 11
+      m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       m_AllTileFlags: 1073741825
@@ -361,6 +370,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: c41d979b5392c436ab6a511047c65359, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 1190f16c43ac648f5b6986eca41d8f33, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: c3c36edfe9674469694800c516a5de31, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 01d1033763c334a619115cb41a2258a3, type: 3}
@@ -384,8 +395,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: a7cefa77c0006441886c39a2b214c061, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 4b4f6bb436c1f439ea7f84beb56d3a72, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: a348c046ad66b406d9b93a02c3aa168d, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 16
+  - m_RefCount: 17
     m_Data:
       e00: 1
       e01: 0
@@ -458,7 +471,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 28
+  - m_RefCount: 29
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: 0.850296, g: 0.50775933, b: 0.60921586, a: 1}
@@ -526,7 +539,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 0.65, y: 0.9708333, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
