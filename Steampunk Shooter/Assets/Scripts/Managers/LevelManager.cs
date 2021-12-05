@@ -8,9 +8,9 @@ public class LevelManager : MonoBehaviour
     public GameManager gameManager;
     public LevelData levelData;
     public TileDict tileDict;
-    private Grid grid;
-    private LevelFlags flags;
-    private bool levelClearTriggered = false;
+    protected Grid grid;
+    protected LevelFlags flags;
+    protected bool levelClearTriggered = false;
     public virtual void Initialize(LevelFlags flags, Player player, int dir)
     {
         this.flags = flags;
@@ -118,7 +118,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public virtual void OnItemPickup()
+    public virtual void OnItemPickup(Item i)
     {
         if (flags != null)
         {

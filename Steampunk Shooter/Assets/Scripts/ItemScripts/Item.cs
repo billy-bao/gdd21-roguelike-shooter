@@ -8,6 +8,8 @@ public abstract class Item : MonoBehaviour
     protected bool playerPickUp = true; // can item be picked up by player?
     [SerializeField]
     protected bool enemyPickUp = false; // can item be picked up by enemies?
+    [System.NonSerialized]
+    public int id = 0;
 
     /// <summary>
     /// Collision trigger for item pickups. Calls HandlePickup() if needed.
@@ -29,7 +31,7 @@ public abstract class Item : MonoBehaviour
         {
             HandlePickup(hitObject);
             // clear item from level flags
-            FindObjectOfType<LevelManager>()?.OnItemPickup();
+            FindObjectOfType<LevelManager>()?.OnItemPickup(this);
             Destroy(gameObject);
         }
     }
