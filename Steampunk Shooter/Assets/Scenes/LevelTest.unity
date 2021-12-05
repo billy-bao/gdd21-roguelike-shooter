@@ -560,6 +560,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: HealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 3332349103294193619, guid: c8a5349a61e792c469d1777ea03093f8,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3375
+      objectReference: {fileID: 0}
     - target: {fileID: 5736970469325644637, guid: c8a5349a61e792c469d1777ea03093f8,
         type: 3}
       propertyPath: m_AnchorMax.x
