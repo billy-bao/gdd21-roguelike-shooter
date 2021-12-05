@@ -19,6 +19,25 @@ public class HealthBar : MonoBehaviour
         slider.value = health;
     }
 
+    public void HealthIncreasedAnim()
+    {
+        StartCoroutine(ColorGradientFlash(Color.green));
+    }
+
+    private IEnumerator ColorGradientFlash(Color color)
+    {
+        Image im = slider.fillRect.gameObject.GetComponent<Image>();
+        Color orgColor = im.color;
+        for (int i = 0; i <= 10; i++)
+        {
+            im.color = Color.Lerp(orgColor, color, i / 10f);
+            yield return new WaitForSeconds(0.01f);
+        }
+        im.color = color;
+        yield return new WaitForSeconds(0.1f);
+        im.color = orgColor;
+    }
+
     //singleton stuff
     public static HealthBar instance;
     private void Awake()

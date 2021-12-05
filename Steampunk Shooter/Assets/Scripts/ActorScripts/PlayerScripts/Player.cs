@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -249,6 +250,13 @@ public class Player : MonoBehaviour, IActor
     /// <param name="dmg">amount of damage</param>
     public void TakeDamage(float dmg)
     {
+        // heal at full health? bump max health
+        if(Life == MaxLife && dmg < 0)
+        {
+            MaxLife += (int)Math.Sqrt(-dmg);
+            healthbar?.SetMaxHealth((int)MaxLife);
+            healthbar?.HealthIncreasedAnim();
+        }
         Life -= dmg;
         healthbar?.SetHealth((int)Life);
         if (Life <= 0f)
