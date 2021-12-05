@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     {
         // find level manager & data
         GameObject obj = GameObject.FindGameObjectWithTag("LevelData");
+        // GameObject obj = FindObjectOfType<LevelData>().gameObject;
         if (obj == null)
         {
             Debug.Log("No level data found! Aborting...");

@@ -15,5 +15,15 @@ public class Menu : MonoBehaviour
     public void Return()
     {
         SceneManager.LoadScene(0);
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        Destroy(GameObject.Find("UI"));
+        SceneManager.MoveGameObjectToScene(FindObjectOfType<GameManager>().gameObject, SceneManager.GetActiveScene());
+        PauseMenu.GameIsPaused = false;
+        Time.timeScale = 1f;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
