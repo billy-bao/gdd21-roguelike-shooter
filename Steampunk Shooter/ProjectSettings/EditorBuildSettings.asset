@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PokemonLevel.unity
     guid: 20b9d043ff36f364e91242b91a2fa993
+  - enabled: 1
+    path: Assets/Scenes/TownScene.unity
+    guid: 9ee584cea7448274eac5ca9255b7da0b
   m_configObjects: {}
