@@ -190,7 +190,7 @@ public class LevelManager : MonoBehaviour
                 }
                 else if (it as AtkSpdUp != null)
                 {
-                    (it as AtkSpdUp).incAmount += 0.5f;
+                    (it as AtkSpdUp).incAmount += 0.25f;
                 }
                 else if (it as MovSpdUp != null)
                 {

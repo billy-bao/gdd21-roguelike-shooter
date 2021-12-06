@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AtkSpdUp : Item
 {
-    public float incAmount = 1f;
+    public float incAmount = 0.5f;
     public bool permanent = true;
     public float duration = 10f;
 
@@ -17,6 +17,10 @@ public class AtkSpdUp : Item
         else
         {
             actor.ApplyEffect(new ActiveEffect(ActiveEffect.EffectType.AtkSpdAdd, incAmount, duration));
+        }
+        if(actor as Player != null)
+        {
+            (actor as Player).maxBullets += (int)(incAmount / 0.5f);
         }
     }
 }
