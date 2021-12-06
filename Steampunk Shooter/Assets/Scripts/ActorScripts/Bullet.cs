@@ -18,6 +18,9 @@ public class Bullet : MonoBehaviour
     public Faction Faction { get; private set; }
     /// <summary> Timer for remaining duration of bullet before disappearing. </summary>
     public float RemTime { get; private set; }
+    public int pierceNum = 0;
+    private const float pierceCd = 0.01f;
+    private float pierceCdTime = 0f;
 
     private Vector2 velocity; // stores velocity
     #endregion
@@ -42,6 +45,7 @@ public class Bullet : MonoBehaviour
     }
     private void Update()
     {
+        if (pierceCdTime > 0f) pierceCdTime -= Time.deltaTime;
         // does bullet run out of time?
         RemTime -= Time.deltaTime;
         if(RemTime <= 0f)
@@ -58,13 +62,15 @@ public class Bullet : MonoBehaviour
     /// <param name="pow">how much damage the bullet does</param>
     /// <param name="fac">the faction which the bullet belongs to</param>
     /// <param name="time">amount of time the bullet should last before disappearing.</param>
-    public void Init(Vector2 vel, float pow, Faction fac, float time)
+    /// <param name="pierce">number of entities bullet can pierce before disappearing.</param>
+    public void Init(Vector2 vel, float pow, Faction fac, float time, int pierce)
     {
         //Debug.Log("initing bullet with: " + vel + pow + fac + time);
         velocity = vel;
         Power = pow;
         Faction = fac;
         RemTime = time;
+        pierceNum = pierce;
     }
 
     /// <summary>
@@ -88,10 +94,11 @@ public class Bullet : MonoBehaviour
                     break;
                 }
         }
-        if(hitObject != null)
+        if(hitObject != null && pierceCdTime <= 0f)
         {
             hitObject.TakeDamage(Power);
-            Destroy(gameObject);
+            if (pierceNum <= 0) Destroy(gameObject);
+            else { pierceNum--; pierceCdTime = pierceCd; }
         }
 
         // destroy bullet on hitting walls

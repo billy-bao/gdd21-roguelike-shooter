@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
     protected LevelFlags flags;
     protected bool levelClearTriggered = false;
     protected Player player;
+    private List<Item> possibleSpawns;
 
     public virtual void Initialize(LevelFlags flags, Player player, int dir)
     {
@@ -75,41 +76,49 @@ public class LevelManager : MonoBehaviour
     protected virtual void PlacePlayer(Player player, int dir)
     {
         Debug.Log("Placing player at dir " + dir);
-        switch(dir)
+        try
         {
-            case -1:
-                {
-                    player.transform.position = levelData.itemSpawn.position;
-                    break;
-                }
-            case 0:
-                {
-                    Vector3 v = levelData.topExit.position;
-                    v.y -= 1;
-                    player.transform.position = v;
-                    break;
-                }
-            case 1:
-                {
-                    Vector3 v = levelData.bottomExit.position;
-                    v.y += 1;
-                    player.transform.position = v;
-                    break;
-                }
-            case 2:
-                {
-                    Vector3 v = levelData.leftExit.position;
-                    v.x += 1;
-                    player.transform.position = v;
-                    break;
-                }
-            case 3:
-                {
-                    Vector3 v = levelData.rightExit.position;
-                    v.x -= 1;
-                    player.transform.position = v;
-                    break;
-                }
+            switch (dir)
+            {
+                case -1:
+                    {
+                        player.transform.position = levelData.itemSpawn.position;
+                        break;
+                    }
+                case 0:
+                    {
+                        Vector3 v = levelData.topExit.position;
+                        v.y -= 1.2f;
+                        player.transform.position = v;
+                        break;
+                    }
+                case 1:
+                    {
+                        Vector3 v = levelData.bottomExit.position;
+                        v.y += 1.2f;
+                        player.transform.position = v;
+                        break;
+                    }
+                case 2:
+                    {
+                        Vector3 v = levelData.leftExit.position;
+                        v.x += 1.2f;
+                        player.transform.position = v;
+                        break;
+                    }
+                case 3:
+                    {
+                        Vector3 v = levelData.rightExit.position;
+                        v.x -= 1.2f;
+                        player.transform.position = v;
+                        break;
+                    }
+            }
+        }
+        catch(UnassignedReferenceException)
+        {
+            // exit doesn't exist; just spawn at center
+            player.transform.position = levelData.itemSpawn.position;
         }
     }
 
@@ -196,25 +205,35 @@ public class LevelManager : MonoBehaviour
                 {
                     (it as MovSpdUp).incAmount += 1.5f;
                 }
+                else if (it as AtkDmgUp != null)
+                {
+                    (it as AtkDmgUp).incAmount += 0.5f;
+                }
+                // no ProjPierceUp buff - already very good
                 levelData.itemDrops[j] = it;
             }
         }
     }
 
-    public virtual void SpawnRandomItem()
+    public virtual Item ChooseRandomItem()
     {
-        List<Item> possibleSpawns = new List<Item>(levelData.itemDrops);
-        if(player.AdjustedMovSpd() >= 10f)
-        {
-            possibleSpawns.RemoveAll(x => (x as MovSpdUp) != null); //remove move speed up drops
-        }
         if(possibleSpawns.Count > 0)
         {
             Item it = MapGenerator.RandChoice(possibleSpawns);
-            it = Instantiate(it, levelData.itemSpawn.position, Quaternion.identity);
-            it.tag = "Item";
-            it.gameObject.SetActive(true);
+            possibleSpawns.Remove(it);
+            return it;
         }
+        return null;
+    }
+
+    public virtual void SpawnItem(Item it, int pos)
+    {
+        Vector3 position = levelData.itemSpawn.position;
+        position[0] += 2 * pos - 1f;
+        it = Instantiate(it, position, Quaternion.identity);
+        it.id = pos;
+        it.tag = "Item";
+        it.gameObject.SetActive(true);
     }
 
     public virtual void OnEnemyCleared()
@@ -223,26 +242,55 @@ public class LevelManager : MonoBehaviour
         if (flags == null)
         {
             // single level testing
-            SpawnRandomItem();
+            possibleSpawns = new List<Item>(levelData.itemDrops);
+            if (player.AdjustedMovSpd() >= 10f)
+            {
+                possibleSpawns.RemoveAll(x => (x as MovSpdUp) != null); //remove move speed up drops
+            }
+            SpawnItem(ChooseRandomItem(), 0);
+            SpawnItem(ChooseRandomItem(), 1);
             return;
         }
         if(!flags.roomCleared)
         {
             flags.roomCleared = true;
-            flags.droppedItem = levelData.itemDrops[Random.Range(0, levelData.itemDrops.Length)];
+
+            possibleSpawns = new List<Item>(levelData.itemDrops);
+            if (player.AdjustedMovSpd() >= 10f)
+            {
+                possibleSpawns.RemoveAll(x => (x as MovSpdUp) != null); //remove move speed up drops if at cap
+            }
+            if(flags.diffLevel < 1)
+            {
+                possibleSpawns.RemoveAll(x => (x as ProjPierceUp) != null); //remove piercing drops if difficulty is 0
+            }
+            flags.droppedItem[0] = ChooseRandomItem();
+            flags.droppedItem[1] = ChooseRandomItem();
+
             gameManager.OnLevelCleared();
         }
-        if(flags.droppedItem != null)
+        for (int i = 0; i < flags.droppedItem.Length; i++)
         {
-            SpawnRandomItem();
+            if (flags.droppedItem[i] != null)
+            {
+                SpawnItem(flags.droppedItem[i], i);
+            }
         }
     }
 
-    public virtual void OnItemPickup(Item i)
+    public virtual void OnItemPickup(Item item)
     {
         if (flags != null)
         {
-            flags.droppedItem = null;
+            for (int i = 0; i < flags.droppedItem.Length; i++)
+            {
+                flags.droppedItem[i] = null;
+            }
+            foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Item"))
+            {
+                Item it = obj.GetComponent<Item>();
+                if (it == null || it.id >= 0) Destroy(it.gameObject);
+            }
         }
     }
 

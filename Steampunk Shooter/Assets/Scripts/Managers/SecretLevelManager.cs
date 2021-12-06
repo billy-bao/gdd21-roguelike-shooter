@@ -13,7 +13,7 @@ public class SecretLevelManager : LevelManager
         if(flags is null) //single level testing
         {
             Item it = Instantiate(bonusItem, bonusItemSpawn.position, Quaternion.identity);
-            it.id = 1;
+            it.id = -1;
         }
     }
     public override void Initialize(LevelFlags flags, Player player, int dir)
@@ -23,17 +23,17 @@ public class SecretLevelManager : LevelManager
         if(flags.customFlags is null || !(bool)flags.customFlags)
         {
             Item it = Instantiate(bonusItem, bonusItemSpawn.position, Quaternion.identity);
-            it.id = 1;
+            it.id = -1;
         }
     }
 
-    public override void OnItemPickup(Item i)
+    public override void OnItemPickup(Item item)
     {
-        if (flags != null && i.id == 0)
+        if (flags != null && item.id >= 0)
         {
-            flags.droppedItem = null;
+            base.OnItemPickup(item);
         }
-        else if (flags != null && i.id == 1)
+        else if (flags != null && item.id == -1)
         {
             flags.customFlags = true;
         }
