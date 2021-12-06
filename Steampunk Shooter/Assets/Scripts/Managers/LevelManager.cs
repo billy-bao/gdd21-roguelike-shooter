@@ -258,7 +258,11 @@ public class LevelManager : MonoBehaviour
             possibleSpawns = new List<Item>(levelData.itemDrops);
             if (player.AdjustedMovSpd() >= 10f)
             {
-                possibleSpawns.RemoveAll(x => (x as MovSpdUp) != null); //remove move speed up drops
+                possibleSpawns.RemoveAll(x => (x as MovSpdUp) != null); //remove move speed up drops if at cap
+            }
+            if(flags.diffLevel < 1)
+            {
+                possibleSpawns.RemoveAll(x => (x as ProjPierceUp) != null); //remove piercing drops if difficulty is 0
             }
             flags.droppedItem[0] = ChooseRandomItem();
             flags.droppedItem[1] = ChooseRandomItem();
