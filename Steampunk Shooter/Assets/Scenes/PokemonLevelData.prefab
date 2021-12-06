@@ -302,10 +302,6 @@ Transform:
   - {fileID: 2182609009918582552}
   - {fileID: 2182609011230928382}
   - {fileID: 2182609009428160705}
-  - {fileID: 6636788959654292050}
-  - {fileID: 6636788959509205594}
-  - {fileID: 6636788959591045945}
-  - {fileID: 6636788958499898238}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

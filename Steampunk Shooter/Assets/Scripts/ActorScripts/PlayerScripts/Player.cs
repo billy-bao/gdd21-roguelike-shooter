@@ -79,7 +79,7 @@ public class Player : MonoBehaviour, IActor
     private TextMeshProUGUI enemyText;
     public bool areEnemiesCleared = false;
 
-    private GameObject gameOver;
+    public static GameObject gameOver;
 
     [SerializeField]
     private HealthBar healthbar;
@@ -95,6 +95,8 @@ public class Player : MonoBehaviour, IActor
     {
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
+
+        soundManager = FindObjectOfType<SoundManager>();
     }
     private void Start()
     {
@@ -122,7 +124,7 @@ public class Player : MonoBehaviour, IActor
         inputX = Input.GetAxisRaw("Horizontal");
         inputY = Input.GetAxisRaw("Vertical");
         Move();
-        UpdateFacing();
+        if (!PauseMenu.GameIsPaused) UpdateFacing();
 
         numEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         if (ammoText) ammoText.text = "Ammo: " + currBullets;
@@ -166,7 +168,7 @@ public class Player : MonoBehaviour, IActor
             Melee();
         }
 
-        if(Input.GetButtonDown("Reload"))
+        if(Input.GetButtonDown("Reload") && !PauseMenu.GameIsPaused)
         {
             Reload();
         }
@@ -192,7 +194,7 @@ public class Player : MonoBehaviour, IActor
     }
     private void Attack()
     {
-        if (bulletTimer > 0f || currBullets == 0 || reloadTimer > 0f) return; //maybe put these checks in a func later down the line
+        if (bulletTimer > 0f || currBullets == 0 || reloadTimer > 0f || PauseMenu.GameIsPaused) return; //maybe put these checks in a func later down the line
         GameObject obj = Instantiate(bulletObj, PlayerRB.GetRelativePoint(new Vector2(0, 0)), Quaternion.identity);
         obj.GetComponent<Bullet>().Init(looking.normalized * bulletSpd, bulletDmg, Faction.Player, 3f);
         bulletTimer = BulletFreq;
@@ -210,7 +212,7 @@ public class Player : MonoBehaviour, IActor
     private void Melee() //Brackeys tutorial
     {
         //play animation (add this later?)
-        player_animator.SetTrigger("melee_trigger");
+        player_animator?.SetTrigger("melee_trigger");
         //detect all the enemies in range (should the range be adjusted as the game progresses? 
         //for example, do we want the melee to hit the pigeons in any case?)
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleePoint.position, meleeRange, enemyLayers);
@@ -259,7 +261,7 @@ public class Player : MonoBehaviour, IActor
             Debug.Log("GAME OVER");
             gameOver.SetActive(true);
             PlayGameOverMusic();
-            Application.Quit();
+            // Application.Quit();
         }
         if (Life > maxLife) { Life = maxLife; }
         StartCoroutine(HitFlash(dmg > 0 ? Color.red : Color.green));

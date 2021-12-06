@@ -14,6 +14,7 @@ TagManager:
   - ClearText
   - GameOver
   - Fog
+  - Win
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - 
   - Wall
   - Enemy1
-  - 
+  - Level
   - 
   - 
   - 
