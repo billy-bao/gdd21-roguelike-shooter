@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739e361f5598c4a79ae21aa28173ebb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: CustomLevelB
+  sceneName: TownScene
   topExit: {fileID: 780832553439904222}
   bottomExit: {fileID: 780832553993897044}
   leftExit: {fileID: 780832554105752098}
