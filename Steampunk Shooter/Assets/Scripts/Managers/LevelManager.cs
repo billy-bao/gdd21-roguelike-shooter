@@ -196,6 +196,10 @@ public class LevelManager : MonoBehaviour
                 {
                     (it as MovSpdUp).incAmount += 1.5f;
                 }
+                else if (it as AtkDmgUp != null)
+                {
+                    (it as AtkDmgUp).incAmount += 0.5f;
+                }
                 levelData.itemDrops[j] = it;
             }
         }

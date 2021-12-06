@@ -53,6 +53,7 @@ public class Player : MonoBehaviour, IActor
     private float BulletFreq { get { return 1f / AdjustedAtkSpd(); } }
     [SerializeField]
     private float bulletDmg = 2f; // damage bullet does
+    public float Damage { get { return bulletDmg; } set { bulletDmg = value; } }
     [SerializeField]
     public int maxBullets = 5;
     private int currBullets; //Total bullets in one clip (before reloading)
