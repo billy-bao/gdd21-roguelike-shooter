@@ -87,6 +87,11 @@ public class Player : MonoBehaviour, IActor
     [SerializeField]
     private HealthBar healthbar;
 
+    [SerializeField]
+    private Sprite moveLeft;
+    [SerializeField]
+    private Sprite moveRight;
+
     private int numEnemies;
     #endregion
     private LinkedList<ActiveEffect> activeEffects;
@@ -175,6 +180,9 @@ public class Player : MonoBehaviour, IActor
         {
             Reload();
         }
+
+        transform.GetChild(0).position = transform.position - new Vector3(0, 0, 0);
+        transform.GetChild(0).rotation = Quaternion.Euler(0, 0, 0);
     }
     #endregion
 
@@ -193,6 +201,10 @@ public class Player : MonoBehaviour, IActor
     {
         mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         looking = new Vector2((mousepos.x - transform.position.x), (mousepos.y - transform.position.y));
+        if (mousepos.x - transform.position.x < 0)
+            transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = moveLeft;
+        else if (mousepos.x - transform.position.x > 0)
+            transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = moveRight;
         transform.up = looking;
     }
     private void Attack()
@@ -241,9 +253,9 @@ public class Player : MonoBehaviour, IActor
     {
         for (int i = 0; i < 2; i++)
         {
-            Renderer.color = color;
+            transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = color;
             yield return new WaitForSeconds(0.2f);
-            Renderer.color = orgColor;
+            transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().color = orgColor;
             yield return new WaitForSeconds(0.2f);
         }
     }
