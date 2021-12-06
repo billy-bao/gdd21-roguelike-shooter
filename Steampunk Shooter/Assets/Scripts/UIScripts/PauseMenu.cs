@@ -36,6 +36,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
+        FindObjectOfType<SoundManager>().BGM.UnPause();
     }
 
     public void Pause()
@@ -43,5 +44,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        FindObjectOfType<SoundManager>().BGM.Pause();
     }
 }
