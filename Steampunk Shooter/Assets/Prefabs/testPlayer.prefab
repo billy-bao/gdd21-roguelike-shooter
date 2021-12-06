@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8132565899398682059}
   - component: {fileID: 2676595897060754973}
-  - component: {fileID: 6005636693726745514}
+  - component: {fileID: 4384934949827812354}
   m_Layer: 0
   m_Name: Player Sprite
   m_TagString: Untagged
@@ -250,7 +250,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &6005636693726745514
+--- !u!95 &4384934949827812354
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
