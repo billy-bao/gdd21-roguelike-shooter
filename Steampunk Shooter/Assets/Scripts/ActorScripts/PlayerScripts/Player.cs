@@ -54,6 +54,7 @@ public class Player : MonoBehaviour, IActor
     [SerializeField]
     private float bulletDmg = 2f; // damage bullet does
     public float Damage { get { return bulletDmg; } set { bulletDmg = value; } }
+    public int bulletPierce = 0;
     [SerializeField]
     public int maxBullets = 5;
     private int currBullets; //Total bullets in one clip (before reloading)
@@ -198,7 +199,7 @@ public class Player : MonoBehaviour, IActor
     {
         if (bulletTimer > 0f || currBullets == 0 || reloadTimer > 0f || PauseMenu.GameIsPaused) return; //maybe put these checks in a func later down the line
         GameObject obj = Instantiate(bulletObj, PlayerRB.GetRelativePoint(new Vector2(0, 0)), Quaternion.identity);
-        obj.GetComponent<Bullet>().Init(looking.normalized * bulletSpd, bulletDmg, Faction.Player, 3f);
+        obj.GetComponent<Bullet>().Init(looking.normalized * bulletSpd, bulletDmg, Faction.Player, 3f, bulletPierce);
         bulletTimer = BulletFreq;
         currBullets -= 1;  
     }

@@ -200,6 +200,7 @@ public class LevelManager : MonoBehaviour
                 {
                     (it as AtkDmgUp).incAmount += 0.5f;
                 }
+                // no ProjPierceUp buff - already very good
                 levelData.itemDrops[j] = it;
             }
         }
