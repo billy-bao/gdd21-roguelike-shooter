@@ -85,6 +85,11 @@ public class Player : MonoBehaviour, IActor
     [SerializeField]
     private HealthBar healthbar;
 
+    [SerializeField]
+    private Sprite moveLeft;
+    [SerializeField]
+    private Sprite moveRight;
+
     private int numEnemies;
     #endregion
     private LinkedList<ActiveEffect> activeEffects;
@@ -194,6 +199,10 @@ public class Player : MonoBehaviour, IActor
     {
         mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         looking = new Vector2((mousepos.x - transform.position.x), (mousepos.y - transform.position.y));
+        if (mousepos.x - transform.position.x < 0)
+            transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = moveLeft;
+        else if (mousepos.x - transform.position.x > 0)
+            transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = moveRight;
         transform.up = looking;
     }
     private void Attack()
