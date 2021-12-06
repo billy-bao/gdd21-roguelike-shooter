@@ -267,7 +267,7 @@ public class Player : MonoBehaviour, IActor
             Debug.Log("GAME OVER");
             gameOver.SetActive(true);
             PlayGameOverMusic();
-            Application.Quit();
+            //Application.Quit();
         }
         if (Life > maxLife) { Life = maxLife; }
         StartCoroutine(HitFlash(dmg > 0 ? Color.red : Color.green));

@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
         this.flags = flags;
         BlockExits();
         PlacePlayer(player, dir);
+        SetDifficulty(flags.diffLevel);
         if(flags.roomCleared)
         {
             //disable WaveManager
@@ -37,7 +38,7 @@ public class LevelManager : MonoBehaviour
     }
 
     //block off disabled exits
-    public virtual void BlockExits()
+    protected virtual void BlockExits()
     {
         grid = FindObjectOfType<Grid>();
         if (grid == null)
@@ -70,7 +71,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public virtual void PlacePlayer(Player player, int dir)
+    protected virtual void PlacePlayer(Player player, int dir)
     {
         Debug.Log("Placing player at dir " + dir);
         switch(dir)
@@ -111,13 +112,103 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    protected virtual void SetDifficulty(int diff)
+    {
+        //add mods to wavemanager
+        int modsLeft = diff;
+        WaveManager spawns = levelData.enemySpawns;
+        while(modsLeft > 0)
+        {
+            modsLeft--;
+            int modID = (int)(Random.value * 4);
+            switch(modID)
+            {
+                case 0:
+                    {
+                        //increase enemy spawns
+                        foreach(WaveManager.Wave w in spawns.waves)
+                        {
+                            w.amount = (int)(w.amount * 1.5) + 1;
+                        }
+                        break;
+                    }
+                case 1:
+                    {
+                        //buff enemy speed
+                        foreach (WaveManager.Wave w in spawns.waves)
+                        {
+                            w.enemy = Instantiate(w.enemy);
+                            w.enemy.tag = "Untagged";
+                            w.enemy.SetActive(false);
+                            Enemy1 e = w.enemy.GetComponent<Enemy1>();
+                            if (e != null) e.MoveSpeed += 1;
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        //buff enemy damage
+                        foreach (WaveManager.Wave w in spawns.waves)
+                        {
+                            w.enemy = Instantiate(w.enemy);
+                            w.enemy.tag = "Untagged";
+                            w.enemy.SetActive(false);
+                            Enemy1 e = w.enemy.GetComponent<Enemy1>();
+                            if (e != null) e.Damage += 1;
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        //buff enemy health
+                        foreach (WaveManager.Wave w in spawns.waves)
+                        {
+                            w.enemy = Instantiate(w.enemy);
+                            w.enemy.tag = "Untagged";
+                            w.enemy.SetActive(false);
+                            Enemy1 e = w.enemy.GetComponent<Enemy1>();
+                            if (e != null) { e.MaxLife += 3; e.TakeDamage(-3); }
+                        }
+                        break;
+                    }
+            }
+        }
+
+        //make item reward better
+        for (int i = 0; i < diff; i++)
+        {
+            for (int j = 0; j < levelData.itemDrops.Length; j++)
+            {
+                Item it = levelData.itemDrops[j];
+                it = Instantiate(it);
+                it.tag = "Untagged";
+                it.gameObject.SetActive(false);
+                if (it as HealthRefill != null)
+                {
+                    (it as HealthRefill).healAmount += 3;
+                }
+                else if (it as AtkSpdUp != null)
+                {
+                    (it as AtkSpdUp).incAmount += 0.5f;
+                }
+                else if (it as MovSpdUp != null)
+                {
+                    (it as MovSpdUp).incAmount += 1.5f;
+                }
+                levelData.itemDrops[j] = it;
+            }
+        }
+    }
+
     public virtual void OnEnemyCleared()
     {
         if (player != null) player.areEnemiesCleared = true;
         if (flags == null)
         {
             // single level testing
-            Instantiate(levelData.itemDrops[Random.Range(0, levelData.itemDrops.Length)], levelData.itemSpawn.position, Quaternion.identity);
+            Item it = Instantiate(levelData.itemDrops[Random.Range(0, levelData.itemDrops.Length)], levelData.itemSpawn.position, Quaternion.identity);
+            it.tag = "Item";
+            it.gameObject.SetActive(true);
             return;
         }
         if(!flags.roomCleared)
@@ -128,7 +219,9 @@ public class LevelManager : MonoBehaviour
         }
         if(flags.droppedItem != null)
         {
-            Instantiate(flags.droppedItem, levelData.itemSpawn.position, Quaternion.identity);
+            Item it = Instantiate(flags.droppedItem, levelData.itemSpawn.position, Quaternion.identity);
+            it.tag = "Item";
+            it.gameObject.SetActive(true);
         }
     }
 

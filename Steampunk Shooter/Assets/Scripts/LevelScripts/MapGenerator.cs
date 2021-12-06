@@ -147,6 +147,30 @@ public class MapGenerator : MonoBehaviour
         map.startId = (int)(Random.value * map.levels.Count);
         Debug.Log("Starting room is room #" + map.startId);
 
+        //increase difficulty of farther rooms
+        int[] dists = new int[map.levels.Count];
+        for (int i = 0; i < dists.Length; i++) dists[i] = -1;
+        Queue<int> bfs = new Queue<int>();
+        bfs.Enqueue(map.startId);
+        dists[map.startId] = 0;
+        while (bfs.Count > 0)
+        {
+            int curRoom = bfs.Dequeue();
+            for(int i = 0; i < 4; i++)
+            {
+                LevelNode adjRoom = map.LevelAtCoords(Map.MoveDir(map.levels[curRoom].coords, i));
+                if(adjRoom != null && dists[adjRoom.id] == -1)
+                {
+                    dists[adjRoom.id] = dists[curRoom] + 1;
+                    bfs.Enqueue(adjRoom.id);
+                }
+            }
+        }
+        for(int i = 0; i < dists.Length; i++)
+        {
+            map.flags[i].diffLevel = Mathf.Min((int)(Random.value * dists[i]), (int)Mathf.Sqrt(2*dists[i]));
+        }
+
         return map;
     }
 }

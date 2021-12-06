@@ -20,7 +20,7 @@ public class Enemy1 : MonoBehaviour, IEnemy
     private float maxLife = 5f;
 
     /// <summary> Max health. </summary>
-    public float MaxLife { get => maxLife; private set { maxLife = value; } }
+    public float MaxLife { get => maxLife; set { maxLife = value; } }
     /// <summary> Current health. </summary>
     public float Life { get; private set; }
     #endregion
@@ -28,6 +28,7 @@ public class Enemy1 : MonoBehaviour, IEnemy
     #region Attack_vars
     [SerializeField]
     private float damage = 1f; // damage done by this enemy
+    public float Damage { get { return damage; } set { damage = value; } }
     [SerializeField]
     private float attackFreq = 1f; // cooldown period of attacks
     private float attackTimer = 0f;
@@ -165,7 +166,6 @@ public class Enemy1 : MonoBehaviour, IEnemy
     #region AI_funcs
     void OnPathComplete(Path P)
     {
-        Debug.Log("Line 88");
         if (!P.error)
         {
             path = P;
