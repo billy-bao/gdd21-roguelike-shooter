@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
     protected LevelFlags flags;
     protected bool levelClearTriggered = false;
     protected Player player;
+    private List<Item> possibleSpawns;
 
     public virtual void Initialize(LevelFlags flags, Player player, int dir)
     {
@@ -214,20 +215,25 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public virtual void SpawnRandomItem()
+    public virtual Item ChooseRandomItem()
     {
-        List<Item> possibleSpawns = new List<Item>(levelData.itemDrops);
-        if(player.AdjustedMovSpd() >= 10f)
-        {
-            possibleSpawns.RemoveAll(x => (x as MovSpdUp) != null); //remove move speed up drops
-        }
         if(possibleSpawns.Count > 0)
         {
             Item it = MapGenerator.RandChoice(possibleSpawns);
-            it = Instantiate(it, levelData.itemSpawn.position, Quaternion.identity);
-            it.tag = "Item";
-            it.gameObject.SetActive(true);
+            possibleSpawns.Remove(it);
+            return it;
         }
+        return null;
+    }
+
+    public virtual void SpawnItem(Item it, int pos)
+    {
+        Vector3 position = levelData.itemSpawn.position;
+        position[0] += 2 * pos - 1f;
+        it = Instantiate(it, position, Quaternion.identity);
+        it.id = pos;
+        it.tag = "Item";
+        it.gameObject.SetActive(true);
     }
 
     public virtual void OnEnemyCleared()
@@ -236,26 +242,51 @@ public class LevelManager : MonoBehaviour
         if (flags == null)
         {
             // single level testing
-            SpawnRandomItem();
+            possibleSpawns = new List<Item>(levelData.itemDrops);
+            if (player.AdjustedMovSpd() >= 10f)
+            {
+                possibleSpawns.RemoveAll(x => (x as MovSpdUp) != null); //remove move speed up drops
+            }
+            SpawnItem(ChooseRandomItem(), 0);
+            SpawnItem(ChooseRandomItem(), 1);
             return;
         }
         if(!flags.roomCleared)
         {
             flags.roomCleared = true;
-            flags.droppedItem = levelData.itemDrops[Random.Range(0, levelData.itemDrops.Length)];
+
+            possibleSpawns = new List<Item>(levelData.itemDrops);
+            if (player.AdjustedMovSpd() >= 10f)
+            {
+                possibleSpawns.RemoveAll(x => (x as MovSpdUp) != null); //remove move speed up drops
+            }
+            flags.droppedItem[0] = ChooseRandomItem();
+            flags.droppedItem[1] = ChooseRandomItem();
+
             gameManager.OnLevelCleared();
         }
-        if(flags.droppedItem != null)
+        for (int i = 0; i < flags.droppedItem.Length; i++)
         {
-            SpawnRandomItem();
+            if (flags.droppedItem[i] != null)
+            {
+                SpawnItem(flags.droppedItem[i], i);
+            }
         }
     }
 
-    public virtual void OnItemPickup(Item i)
+    public virtual void OnItemPickup(Item item)
     {
         if (flags != null)
         {
-            flags.droppedItem = null;
+            for (int i = 0; i < flags.droppedItem.Length; i++)
+            {
+                flags.droppedItem[i] = null;
+            }
+            foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Item"))
+            {
+                Item it = obj.GetComponent<Item>();
+                if (it == null || it.id >= 0) Destroy(it.gameObject);
+            }
         }
     }
 
