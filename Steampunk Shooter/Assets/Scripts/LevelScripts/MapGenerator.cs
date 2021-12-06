@@ -12,7 +12,7 @@ public class MapGenerator : MonoBehaviour
 
     public LevelData[] levels;
 
-    private T RandChoice<T>(IReadOnlyList<T> list)
+    public static T RandChoice<T>(IReadOnlyList<T> list)
     {
         return list[(int)(Random.value * list.Count)];
     }

@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 952745137042d5b4893ebded06b6d8ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 0}
+  gameOverMusic: {fileID: 0}
   moveSpeed: 5
   maxLife: 10
   bulletObj: {fileID: 2902184588713837341, guid: 6fc00f4bf2e7a42339bd4ac38c4e3bc6,
@@ -160,4 +162,6 @@ MonoBehaviour:
     m_Bits: 0
   player_animator: {fileID: 0}
   ammoText: {fileID: 0}
+  enemyText: {fileID: 0}
+  areEnemiesCleared: 0
   healthbar: {fileID: 0}
