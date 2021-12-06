@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
@@ -200,15 +201,29 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public virtual void SpawnRandomItem()
+    {
+        List<Item> possibleSpawns = new List<Item>(levelData.itemDrops);
+        if(player.AdjustedMovSpd() >= 10f)
+        {
+            possibleSpawns.RemoveAll(x => (x as MovSpdUp) != null); //remove move speed up drops
+        }
+        if(possibleSpawns.Count > 0)
+        {
+            Item it = MapGenerator.RandChoice(possibleSpawns);
+            it = Instantiate(it, levelData.itemSpawn.position, Quaternion.identity);
+            it.tag = "Item";
+            it.gameObject.SetActive(true);
+        }
+    }
+
     public virtual void OnEnemyCleared()
     {
         if (player != null) player.areEnemiesCleared = true;
         if (flags == null)
         {
             // single level testing
-            Item it = Instantiate(levelData.itemDrops[Random.Range(0, levelData.itemDrops.Length)], levelData.itemSpawn.position, Quaternion.identity);
-            it.tag = "Item";
-            it.gameObject.SetActive(true);
+            SpawnRandomItem();
             return;
         }
         if(!flags.roomCleared)
@@ -219,9 +234,7 @@ public class LevelManager : MonoBehaviour
         }
         if(flags.droppedItem != null)
         {
-            Item it = Instantiate(flags.droppedItem, levelData.itemSpawn.position, Quaternion.identity);
-            it.tag = "Item";
-            it.gameObject.SetActive(true);
+            SpawnRandomItem();
         }
     }
 
