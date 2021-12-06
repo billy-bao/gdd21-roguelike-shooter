@@ -6121,6 +6121,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SteamVent (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7274193367356408014, guid: f65a2982c976d7146852a1d11081c592,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 461020851
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274193367356408014, guid: f65a2982c976d7146852a1d11081c592,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7274193367356408015, guid: f65a2982c976d7146852a1d11081c592,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6611,6 +6621,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SteamVent
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274193367356408014, guid: f65a2982c976d7146852a1d11081c592,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 461020851
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274193367356408014, guid: f65a2982c976d7146852a1d11081c592,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7274193367356408015, guid: f65a2982c976d7146852a1d11081c592,
         type: 3}
