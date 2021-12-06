@@ -88,28 +88,28 @@ public class LevelManager : MonoBehaviour
                 case 0:
                     {
                         Vector3 v = levelData.topExit.position;
-                        v.y -= 1;
+                        v.y -= 1.2f;
                         player.transform.position = v;
                         break;
                     }
                 case 1:
                     {
                         Vector3 v = levelData.bottomExit.position;
-                        v.y += 1;
+                        v.y += 1.2f;
                         player.transform.position = v;
                         break;
                     }
                 case 2:
                     {
                         Vector3 v = levelData.leftExit.position;
-                        v.x += 1;
+                        v.x += 1.2f;
                         player.transform.position = v;
                         break;
                     }
                 case 3:
                     {
                         Vector3 v = levelData.rightExit.position;
-                        v.x -= 1;
+                        v.x -= 1.2f;
                         player.transform.position = v;
                         break;
                     }
