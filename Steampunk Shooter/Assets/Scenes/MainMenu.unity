@@ -1195,7 +1195,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: STAMPPUNK
+  m_text: STAMPUNK
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8394e423cfa504a4a88f82c730021b37, type: 2}
   m_sharedMaterial: {fileID: -6008834362630907824, guid: 8394e423cfa504a4a88f82c730021b37,
@@ -1265,7 +1265,7 @@ MonoBehaviour:
   m_margin: {x: -1.179779, y: 0, z: -371.6117, w: -16.617325}
   m_textInfo:
     textComponent: {fileID: 1283163201}
-    characterCount: 9
+    characterCount: 8
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
