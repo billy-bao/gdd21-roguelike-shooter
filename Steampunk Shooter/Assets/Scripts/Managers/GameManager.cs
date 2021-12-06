@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     public AudioClip winMusic;
     public SoundManager soundManager;
+    public static GameObject winScreen;
 
     private Map map;
     private int curLevelId = -1;
@@ -34,8 +35,11 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(playerObj);
         DontDestroyOnLoad(FindObjectOfType<HealthBar>().transform.parent.gameObject);
         //SceneManager.sceneLoaded += OnLevelLoaded;
-
+        soundManager = FindObjectOfType<SoundManager>();
+        winScreen = GameObject.FindWithTag("Win");
+        if (winScreen) winScreen.SetActive(false);
         map = GetComponent<MapGenerator>().GenerateMap((int)(Random.value * 5f) + 7);
+        levelsCleared = 0;
         levelsCleared = 0;
         LoadLevel(map.startId, -1);
     }
@@ -51,6 +55,7 @@ public class GameManager : MonoBehaviour
     {
         // find level manager & data
         GameObject obj = GameObject.FindGameObjectWithTag("LevelData");
+        // GameObject obj = FindObjectOfType<LevelData>().gameObject;
         if (obj == null)
         {
             Debug.Log("No level data found! Aborting...");
@@ -90,6 +95,8 @@ public class GameManager : MonoBehaviour
         {
             //win?
             soundManager.ChangeBGM(winMusic);
+            // PauseMenu.GameEnded = true;
+            if (winScreen) winScreen.SetActive(true);
         }
     }
 }
