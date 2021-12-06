@@ -54,7 +54,7 @@ public class Player : MonoBehaviour, IActor
     [SerializeField]
     private float bulletDmg = 2f; // damage bullet does
     [SerializeField]
-    private int maxBullets = 5;
+    public int maxBullets = 5;
     private int currBullets; //Total bullets in one clip (before reloading)
     [SerializeField]
     private float reloadFreq = 1f; //Reload Speed

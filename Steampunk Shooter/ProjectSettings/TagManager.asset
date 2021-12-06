@@ -15,6 +15,7 @@ TagManager:
   - GameOver
   - Fog
   - Win
+  - Item
   layers:
   - Default
   - TransparentFX
