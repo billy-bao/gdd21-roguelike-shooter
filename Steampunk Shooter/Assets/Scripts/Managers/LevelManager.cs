@@ -75,41 +75,49 @@ public class LevelManager : MonoBehaviour
     protected virtual void PlacePlayer(Player player, int dir)
     {
         Debug.Log("Placing player at dir " + dir);
-        switch(dir)
+        try
         {
-            case -1:
-                {
-                    player.transform.position = levelData.itemSpawn.position;
-                    break;
-                }
-            case 0:
-                {
-                    Vector3 v = levelData.topExit.position;
-                    v.y -= 1;
-                    player.transform.position = v;
-                    break;
-                }
-            case 1:
-                {
-                    Vector3 v = levelData.bottomExit.position;
-                    v.y += 1;
-                    player.transform.position = v;
-                    break;
-                }
-            case 2:
-                {
-                    Vector3 v = levelData.leftExit.position;
-                    v.x += 1;
-                    player.transform.position = v;
-                    break;
-                }
-            case 3:
-                {
-                    Vector3 v = levelData.rightExit.position;
-                    v.x -= 1;
-                    player.transform.position = v;
-                    break;
-                }
+            switch (dir)
+            {
+                case -1:
+                    {
+                        player.transform.position = levelData.itemSpawn.position;
+                        break;
+                    }
+                case 0:
+                    {
+                        Vector3 v = levelData.topExit.position;
+                        v.y -= 1;
+                        player.transform.position = v;
+                        break;
+                    }
+                case 1:
+                    {
+                        Vector3 v = levelData.bottomExit.position;
+                        v.y += 1;
+                        player.transform.position = v;
+                        break;
+                    }
+                case 2:
+                    {
+                        Vector3 v = levelData.leftExit.position;
+                        v.x += 1;
+                        player.transform.position = v;
+                        break;
+                    }
+                case 3:
+                    {
+                        Vector3 v = levelData.rightExit.position;
+                        v.x -= 1;
+                        player.transform.position = v;
+                        break;
+                    }
+            }
+        }
+        catch(UnassignedReferenceException)
+        {
+            // exit doesn't exist; just spawn at center
+            player.transform.position = levelData.itemSpawn.position;
         }
     }
 
