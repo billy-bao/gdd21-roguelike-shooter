@@ -6538,25 +6538,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 780832553439904222, guid: f96125e076548cd4590511d0d324d92e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 19.17
-      objectReference: {fileID: 0}
-    - target: {fileID: 780832553439904222, guid: f96125e076548cd4590511d0d324d92e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -13.93
-      objectReference: {fileID: 0}
     - target: {fileID: 780832553810065156, guid: f96125e076548cd4590511d0d324d92e,
         type: 3}
       propertyPath: m_Name
       value: TownLevelData
-      objectReference: {fileID: 0}
-    - target: {fileID: 780832553810065158, guid: f96125e076548cd4590511d0d324d92e,
-        type: 3}
-      propertyPath: sceneName
-      value: TownScene
       objectReference: {fileID: 0}
     - target: {fileID: 780832553810065160, guid: f96125e076548cd4590511d0d324d92e,
         type: 3}
@@ -6612,31 +6597,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 780832553993897044, guid: f96125e076548cd4590511d0d324d92e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -7.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 780832554105752098, guid: f96125e076548cd4590511d0d324d92e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -23.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 780832554105752098, guid: f96125e076548cd4590511d0d324d92e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.89
-      objectReference: {fileID: 0}
-    - target: {fileID: 780832554902739006, guid: f96125e076548cd4590511d0d324d92e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.89
-      objectReference: {fileID: 0}
-    - target: {fileID: 780832554902739006, guid: f96125e076548cd4590511d0d324d92e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.48
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f96125e076548cd4590511d0d324d92e, type: 3}

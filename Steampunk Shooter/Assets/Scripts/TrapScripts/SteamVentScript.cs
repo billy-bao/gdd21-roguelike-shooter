@@ -10,7 +10,7 @@ public class SteamVentScript : MonoBehaviour
     private float attackTimer = 0f;
     private float attackFreq = 1f;
     private float damage = 1f;
-    private float range = 3f;
+    private float range = 1.5f;
     private bool damageOn = false;
     private RaycastHit2D hitInfo;
     public GameObject hitEffect;
