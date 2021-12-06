@@ -180,7 +180,7 @@ public class Enemy1 : MonoBehaviour, IEnemy
     {
         for(int i = 0; i < 2; i++)
         {
-            Renderer.color = Color.Lerp(orgColor, Color.white, 0.5f);
+            Renderer.color = Color.Lerp(orgColor, Color.red, 0.5f);
             yield return new WaitForSeconds(0.2f);
             Renderer.color = orgColor;
             yield return new WaitForSeconds(0.2f);
