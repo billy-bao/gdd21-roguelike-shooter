@@ -22,7 +22,7 @@ public class EnemyBar : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        transform.position = enemy.transform.position - new Vector3((enemy.MaxLife / 5) * 0.33f, 0, 0);
+        transform.position = enemy.transform.position - new Vector3((enemy.MaxLife / 5) * 0.33f, -0.3f, 0);
         transform.rotation = Quaternion.Euler(0, 0, 0);
         scale.x = enemy.Life / 40f;
         transform.localScale = scale;
